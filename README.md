@@ -9,6 +9,8 @@
 
 ## Security
 
+![img](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/rio_olympics2.gif)
+
 ## Usage
 
 We use Python v3.7, PyTorch v1.10, and mmcv 1.3.9 for the experiments.
