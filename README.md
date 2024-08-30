@@ -12,6 +12,13 @@
 ![img](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/rio_olympics2.gif)
 ![img](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/tokyo2020-3.gif)
 
+
+<p align="center">
+  <img src="https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/skeleton.png" alt="Description of the image" width="500">
+</p>
+
+  
+
 | Keypoint | Annotation | Description | Keypoint | Annotation | Description | 
 |----------|----------|----------|----------|----------|----------|
 | 1 | T1 | Nostril Midpoint | 15 | P9 | Right Tuber Sacrale |
@@ -29,7 +36,9 @@
 | 13 | A1' | Left Hoof Solar Border(Front) | 27 | Q3 | Tail 3 |
 | 14 | A10 | Tuber Sacrale | 28 | Q4 | Tail 4 |
 
+<p align="left">
 
+  
 ## Usage
 
 We use Python v3.7, PyTorch v1.10, and mmcv 1.3.9 for the experiments.
