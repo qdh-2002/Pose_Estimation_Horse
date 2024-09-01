@@ -61,8 +61,8 @@ We utilize a detailed skeleton consisting of 28 keypoints for comprehensive pose
 
 | Model | AP@0.05 | Config | Log | Weight | Size |
 |----------|----------|----------|----------|----------|----------|
-| HRNet-32 | Row 1, Col 2 | Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |
-| ResNet-101 | Row 2, Col 2 | Row 2, Col 3 |Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |
+| HRNet-32 | Row 1, Col 2 | [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/efrei_hrnet.py) |Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |
+| ResNet-101 | Row 2, Col 2 | [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/efrei_resnet.py) |Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |
 | ViTPose-H | Row 3, Col 2 | Row 3, Col 3 |Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |
 
 
