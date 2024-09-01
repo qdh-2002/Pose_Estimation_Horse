@@ -1,23 +1,36 @@
 # ViTPose Model on Efrei-Horse Dataset
 
-![banner]()
-
-![badge]()
-![badge]()
 [![license](https://img.shields.io/github/license/:user/:repo.svg)](LICENSE)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-## Overview
+<img src="https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/overview.png" alt="Description of the image" width="500">
 
+
+## Overview of the Efrei_Horse Dataset
 ![img](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/rio_olympics2.gif)
 ![img](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/tokyo2020-3.gif)
 
+
+The Efrei Horse Dataset is a comprehensive dataset designed for equestrian action analysis and pose estimation, which consists of annotated 7,794 images and collected from 87 videos:
+
+- **87 Different Videos**: These videos are sourced from prestigious equestrian competitions such as the FEI and the Olympics, as well as IFCE and various internet sources.
+- **Annotations**: The annotations follow the COCO-style format. We adopt a skeleton of 28 keypoints.
+
+### Data Split
+
+- **Testing Set**: 1,430 images
+- **Training Set**: 6,364 images
+
+
+
+### Skeleton
+
+We utilize a detailed skeleton consisting of 28 keypoints for comprehensive pose estimation. This set of keypoints provides extensive coverage of the horse's body, capturing critical anatomical landmarks essential for accurate analysis. 
 
 <p align="center">
   <img src="https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/skeleton.png" alt="Description of the image" width="500">
 </p>
 
-  
 
 | Keypoint | Annotation | Description | Keypoint | Annotation | Description | 
 |----------|----------|----------|----------|----------|----------|
@@ -36,31 +49,13 @@
 | 13 | A1' | Left Hoof Solar Border(Front) | 27 | Q3 | Tail 3 |
 | 14 | A10 | Tuber Sacrale | 28 | Q4 | Tail 4 |
 
+
+
 <p align="left">
 
-  
-## Usage
+## Models
 
-We use Python v3.7, PyTorch v1.10, and mmcv 1.3.9 for the experiments.
-
-```
-git clone https://github.com/open-mmlab/mmcv.git
-```
-
-
-- [Security](#security)
-- [Background](#background)
-- [Install](#install)
-- [Usage](#usage)
-- [API](#api)
-- [Contributing](#contributing)
-- [License](#license)
-
-
-
-### Any optional sections
-
-## Background
+### Performance Comparison
 
 | Header 1 | Header 2 | Header 3 |
 |----------|----------|----------|
@@ -69,30 +64,22 @@ git clone https://github.com/open-mmlab/mmcv.git
 | Row 3, Col 1 | Row 3, Col 2 | Row 3, Col 3 |
 
 
-### Any optional sections
 
-## Install
+### Usage
 
-This module depends upon a knowledge of [Markdown]().
+We use Python v3.7, PyTorch v1.10, and mmcv 1.3.9 for the experiments. Our experiments are based on MMPose.
+
+
+
 
 ```
+git clone https://github.com/open-mmlab/mmcv.git
 ```
 
-### Any optional sections
-
-## Usage
 
 
 
-Note: The `license` badge image link at the top of this file should be updated with the correct `:user` and `:repo`.
 
-### Any optional sections
-
-## API
-
-### Any optional sections
-
-## More optional sections
 
 ## Contributing
 
@@ -102,7 +89,6 @@ PRs accepted.
 
 Small note: If editing the Readme, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
 
-### Any optional sections
 
 ## License
 
