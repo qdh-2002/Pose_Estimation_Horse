@@ -1,3 +1,0 @@
-hrnet
-resnet
-vitpose-h
