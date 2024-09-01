@@ -15,11 +15,13 @@ The Efrei Horse Dataset is a comprehensive dataset designed for equestrian actio
 - **✅ Annotations**: The annotations follow the COCO-style format. We adopt a skeleton of 28 keypoints.
 - **✅ BBox**: We also provide bounding box information in our dataset.
 
+🚀 The complete dataset can be accessed on [OneDrive](https://onedrive.live.com/?cid=FEA017F18035C74D&id=FEA017F18035C74D%21s12200e83ccea4cc4b3fe3dbd87a7ee81&parId=FEA017F18035C74D%21sd8aec58d711f4827af93e98bb5c9647f&o=OneUp).
+
+
 ### Data Split
 
 - **Testing Set**: 1,430 images
 - **Training Set**: 6,364 images
-
 
 
 ### Skeleton
@@ -48,9 +50,9 @@ We utilize a detailed skeleton consisting of 28 keypoints for comprehensive pose
 | 13 | A1' | Left Hoof Solar Border(Front) | 27 | Q3 | Tail 3 |
 | 14 | A10 | Tuber Sacrale | 28 | Q4 | Tail 4 |
 
-
-
 <p align="left">
+
+
 
 ## Models
 
