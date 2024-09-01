@@ -3,18 +3,17 @@
 [![license](https://img.shields.io/github/license/:user/:repo.svg)](LICENSE)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-<img src="https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/overview.png" alt="Description of the image" width="500">
 
 
 ## Overview of the Efrei_Horse Dataset
-![img](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/rio_olympics2.gif)
-![img](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/tokyo2020-3.gif)
+<img src="https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/overview.png" alt="Description of the image" width="500">
 
 
 The Efrei Horse Dataset is a comprehensive dataset designed for equestrian action analysis and pose estimation, which consists of annotated 7,794 images and collected from 87 videos:
 
-- **87 Different Videos**: These videos are sourced from prestigious equestrian competitions such as the FEI and the Olympics, as well as IFCE and various internet sources.
-- **Annotations**: The annotations follow the COCO-style format. We adopt a skeleton of 28 keypoints.
+- **🎦 87 Different Videos**: These videos are sourced from prestigious equestrian competitions such as the FEI and the Olympics, as well as IFCE and various internet sources.
+- **✅ Annotations**: The annotations follow the COCO-style format. We adopt a skeleton of 28 keypoints.
+- **✅ BBox**: We also provide bounding box information in our dataset.
 
 ### Data Split
 
@@ -55,30 +54,88 @@ We utilize a detailed skeleton consisting of 28 keypoints for comprehensive pose
 
 ## Models
 
+![img](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/rio_olympics2.gif)
+![img](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/tokyo2020-3.gif)
+
 ### Performance Comparison
 
-| Header 1 | Header 2 | Header 3 |
-|----------|----------|----------|
-| Row 1, Col 1 | Row 1, Col 2 | Row 1, Col 3 |
-| Row 2, Col 1 | Row 2, Col 2 | Row 2, Col 3 |
-| Row 3, Col 1 | Row 3, Col 2 | Row 3, Col 3 |
+| Model | AP@0.05 | Config | Log | Weight | Size |
+|----------|----------|----------|----------|----------|----------|
+| HRNet-32 | Row 1, Col 2 | Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |
+| ResNet-101 | Row 2, Col 2 | Row 2, Col 3 |Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |
+| ViTPose-H | Row 3, Col 2 | Row 3, Col 3 |Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |
 
 
 
 ### Usage
 
-We use Python v3.7, PyTorch v1.10, and mmcv 1.3.9 for the experiments. Our experiments are based on MMPose.
+We based our experiments on [MMPose](https://github.com/open-mmlab/mmpose), a comprehensive toolbox for pose estimation. For details on how to install and use MMPose, please refer to its GitHub repository.
 
+To install MMPose and its dependencies, follow these steps:
 
-
-
+1. **Clone the MMPose repository:**
+   
 ```
-git clone https://github.com/open-mmlab/mmcv.git
+!pip3 install install torch==1.10.1+cu113 torchvision==0.11.2+cu113 torchaudio==0.10.1+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+!pip install -U openmim
+!mim install mmengine
+!mim install 'mmcv==2.0.0rc3'
+!mim install "mmdet>=3.0.0rc6"
+!pip install opencv-python pillow matplotlib seaborn tqdm pycocotools -i https://pypi.tuna.tsinghua.edu.cn/simple
+!rm -rf mmpose
+!git clone https://github.com/open-mmlab/mmpose.git -b tutorial2023
+import os
+os.chdir('mmpose')
+!mim install -e .
+import os
+
+os.mkdir('checkpoint')
+os.mkdir('outputs')
+os.mkdir('data')
+os.mkdir('data/test')
+```
+
+2. **Install MMDetection:**
+```
+!mim install mmcv-full
+!rm -rf mmdetection
+!git clone https://github.com/open-mmlab/mmdetection.git -b 3.x
+
+import os
+os.chdir('mmdetection')
+!pip install -v -e .
+import os
+os.mkdir('checkpoint')
+os.mkdir('outputs')
+os.mkdir('data')
+```
+
+*If you are using our ViTPose Model, please run:*
+```
+!mim install 'mmpretrain>=1.0.0'
 ```
 
 
 
-
+5. **Test your own videos:**
+```
+!python mmpose/demo/topdown_demo_with_mmdet.py \
+        mmpose/demo/mmdetection_cfg/faster_rcnn_r50_fpn_coco.py \
+        https://download.openmmlab.com/mmdetection/v2.0/faster_rcnn/faster_rcnn_r50_fpn_1x_coco/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth \
+        mmpose/configs/animal_2d_keypoint/topdown_heatmap/efrei/ViTPose_huge_simple_efrei.py \
+        work/May24/epoch_190.pth \
+        --input icelandichorse-galop3.mp4 \
+        --output-root outputs/ViTPose_huge_simple_efrei \
+        --device cuda:0 \
+        --bbox-thr 0.5 \
+        --kpt-thr 0.2 \
+        --nms-thr 0.3 \
+        --radius 4 \
+        --thickness 2 \
+        --draw-bbox \
+        --show-kpt-idx \
+        --det-cat-id 17
+```
 
 
 ## Contributing
