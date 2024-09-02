@@ -67,7 +67,7 @@ We utilize a detailed skeleton consisting of 28 keypoints for comprehensive pose
 
 ### Performance Comparison
 
-| Model |Resolution | AP@0.05 | AUC | Config | Log | Weight | Size |
+| Model |Resolution | PCK@0.05 | AUC | Config | Log | Weight | Size |
 |----------|----------|----------|----------|----------|----------|----------|----------|
 | HRNet-w32 | 192x192 | 0.8653 | 0.7992 | [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/efrei_hrnet.py) | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/hrnet.log) |OneDrive |134.3 MB  |
 | HRNet-w48 | 192x192 | ? | ? | [config]() | [log]() |OneDrive | ?  |
