@@ -18,7 +18,10 @@
 </div>
 
 <div align="left">
-The Efrei Horse Dataset is a comprehensive dataset designed for equestrian action analysis and pose estimation, which consists of annotated 7,794 images and collected from 87 videos:
+  
+ The Efrei Horse Dataset is a comprehensive dataset designed for equestrian action analysis and pose estimation, which consists of annotated 7,794 images and collected from 87 videos: 
+
+
 
 - **🎦 87 Different Videos**: These videos are sourced from prestigious equestrian competitions such as the FEI and the Olympics, as well as IFCE and various internet sources.
 - **✅ Annotations**: The annotations follow the COCO-style format. We adopt a skeleton of 28 keypoints(See [Skeleton](#skeleton)).
