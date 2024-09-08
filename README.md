@@ -67,13 +67,14 @@ We utilize a detailed skeleton consisting of 28 keypoints for comprehensive pose
 
 ### Performance Comparison
 
-| Model |Resolution | PCK@0.05 | AUC | Config | Log | Weight | Size |
-|----------|----------|----------|----------|----------|----------|----------|----------|
-| HRNet-w32 | 256x256 | 0.8653 | 0.7992 | [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/efrei_hrnet.py) | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/hrnet.log) |OneDrive |134.3 MB  |
-| HRNet-w48 | 256x256 | ? | ? | [config]() | [log]() |OneDrive | ?  |
-| ResNet-101 | 256x256 | 0.8630 | 0.7971 | [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/efrei_resnet.py) |[log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/resnet.log) |OneDrive |218.2 MB  |
-| ViTPose-S | 192x256 |Row 3, Col 2 | Row 3, Col 3 |Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |
-| ViTPose-H | 192x256 | 0.84 |Row 3, Col 2 | Row 3, Col 3 |Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |
+| Model |Backbone |Resolution | PCK@0.05 | AUC | Config | Log | Weight | Size |
+|----------|----------|----------|----------|----------|----------|----------|----------|----------|
+| HRNet | HRNet_w32 | 256x256 | 0.8653 | 0.7992 | [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/efrei_hrnet.py) | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/hrnet.log) |OneDrive |134.3 MB  |
+| HRNet| HRNet_w48 | 256x256 | ? | ? | [config]() | [log]() |OneDrive | ?  |
+| ResNet | ResNet_101 | 256x256 | 0.8630 | 0.7971 | [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/efrei_resnet.py) |[log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/resnet.log) |OneDrive |218.2 MB  |
+| ViTPose | ViTPose_s | 192x256 |Row 3, Col 2 | Row 3, Col 3 |Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |
+| ViTPose | ViTPose_h | 192x256 | 0.84 |Row 3, Col 2 | Row 3, Col 3 |Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |
+| CSPNeXt | CSPNeXt | 256x256 | 0.88 |Row 3, Col 2 | Row 3, Col 3 |Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |
 
 
 
