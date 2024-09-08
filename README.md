@@ -97,7 +97,7 @@ For details on codes implementation, refer to the official [MMPose](https://mmpo
 
 ### Usage
 
-We based our experiments on [MMPose](https://github.com/open-mmlab/mmpose), a comprehensive toolbox for pose estimation. For details on how to install and use MMPose, please refer to its GitHub repository.
+We based our experiments on [MMPose](https://github.com/open-mmlab/mmpose), a comprehensive toolbox for pose estimation. For details on how to use MMPose, please refer to its GitHub repository.
 
 To install MMPose and its dependencies, follow these steps:
 
