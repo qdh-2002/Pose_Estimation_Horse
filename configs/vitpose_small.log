@@ -1,0 +1,1436 @@
+2024/09/06 13:00:33 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.7.10 (default, Jun  4 2021, 14:48:32) [GCC 7.5.0]
+    CUDA available: True
+    MUSA available: False
+    numpy_random_seed: 1337262831
+    GPU 0,1: NVIDIA GeForce RTX 3090
+    CUDA_HOME: /usr/local/cuda
+    NVCC: Cuda compilation tools, release 11.2, V11.2.152
+    GCC: gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0
+    PyTorch: 1.10.0+cu113
+    PyTorch compiling details: PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.2.3 (Git Hash 7336ca9f055cf1bfa13efb658fe15dc9b41f0740)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX512
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.2
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.2.0, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.10.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+    TorchVision: 0.11.1+cu113
+    OpenCV: 4.5.4
+    MMEngine: 0.10.4
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 1337262831
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+2024/09/06 13:00:34 - mmengine - INFO - Config:
+auto_scale_lr = dict(base_batch_size=512)
+backend_args = dict(backend='local')
+codec = dict(
+    heatmap_size=(
+        48,
+        64,
+    ),
+    input_size=(
+        192,
+        256,
+    ),
+    sigma=2,
+    type='UDPHeatmap')
+custom_hooks = [
+    dict(type='SyncBuffersHook'),
+]
+custom_imports = dict(
+    allow_failed_imports=False,
+    imports=[
+        'mmpose.engine.optim_wrappers.layer_decay_optim_wrapper',
+    ])
+data_mode = 'topdown'
+data_root = 'data/efrei/'
+dataset_type = 'EfreiDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        interval=10, rule='greater', save_best='PCK', type='CheckpointHook'),
+    logger=dict(interval=50, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(enable=False, type='PoseVisualizationHook'))
+default_scope = 'mmpose'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+launcher = 'none'
+load_from = None
+log_level = 'INFO'
+log_processor = dict(
+    by_epoch=True, num_digits=6, type='LogProcessor', window_size=50)
+model = dict(
+    backbone=dict(
+        arch=dict(
+            embed_dims=384,
+            feedforward_channels=1536,
+            num_heads=12,
+            num_layers=12),
+        drop_path_rate=0.1,
+        img_size=(
+            256,
+            192,
+        ),
+        init_cfg=dict(
+            checkpoint=
+            'https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth',
+            type='Pretrained'),
+        out_type='featmap',
+        patch_cfg=dict(padding=2),
+        patch_size=16,
+        qkv_bias=True,
+        type='mmpretrain.VisionTransformer',
+        with_cls_token=False),
+    data_preprocessor=dict(
+        bgr_to_rgb=True,
+        mean=[
+            123.675,
+            116.28,
+            103.53,
+        ],
+        std=[
+            58.395,
+            57.12,
+            57.375,
+        ],
+        type='PoseDataPreprocessor'),
+    head=dict(
+        decoder=dict(
+            heatmap_size=(
+                48,
+                64,
+            ),
+            input_size=(
+                192,
+                256,
+            ),
+            sigma=2,
+            type='UDPHeatmap'),
+        deconv_kernel_sizes=[],
+        deconv_out_channels=[],
+        final_layer=dict(kernel_size=3, padding=1),
+        in_channels=384,
+        loss=dict(type='KeypointMSELoss', use_target_weight=True),
+        out_channels=28,
+        type='HeatmapHead'),
+    neck=dict(apply_relu=True, scale_factor=4.0, type='FeatureMapProcessor'),
+    test_cfg=dict(flip_mode='heatmap', flip_test=True, shift_heatmap=False),
+    type='TopdownPoseEstimator')
+optim_wrapper = dict(
+    clip_grad=dict(max_norm=1.0, norm_type=2),
+    constructor='LayerDecayOptimWrapperConstructor',
+    optimizer=dict(
+        betas=(
+            0.9,
+            0.999,
+        ), lr=0.0005, type='AdamW', weight_decay=0.1),
+    paramwise_cfg=dict(
+        custom_keys=dict(
+            bias=dict(decay_multi=0.0),
+            norm=dict(decay_mult=0.0),
+            pos_embed=dict(decay_mult=0.0),
+            relative_position_bias_table=dict(decay_mult=0.0)),
+        layer_decay_rate=0.8,
+        num_layers=12))
+param_scheduler = [
+    dict(
+        begin=0, by_epoch=False, end=500, start_factor=0.001, type='LinearLR'),
+    dict(
+        begin=0,
+        by_epoch=True,
+        end=210,
+        gamma=0.1,
+        milestones=[
+            170,
+            200,
+        ],
+        type='MultiStepLR'),
+]
+resume = False
+test_cfg = dict()
+test_dataloader = dict(
+    batch_size=32,
+    dataset=dict(
+        ann_file='annotations/test_annotations.json',
+        bbox_file='',
+        data_mode='topdown',
+        data_prefix=dict(img=''),
+        data_root='data/efrei/',
+        metainfo=dict(from_file='configs/_base_/datasets/efrei.py'),
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                192,
+                256,
+            ), type='TopdownAffine', use_udp=True),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='EfreiDataset'),
+    drop_last=False,
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+test_evaluator = [
+    dict(thr=0.05, type='PCKAccuracy'),
+    dict(type='AUC'),
+    dict(type='EPE'),
+]
+train_cfg = dict(by_epoch=True, max_epochs=210, val_interval=10)
+train_dataloader = dict(
+    batch_size=64,
+    dataset=dict(
+        ann_file='annotations/annotations.json',
+        data_mode='topdown',
+        data_prefix=dict(img=''),
+        data_root='data/efrei/',
+        metainfo=dict(from_file='configs/_base_/datasets/efrei.py'),
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(direction='horizontal', type='RandomFlip'),
+            dict(type='RandomHalfBody'),
+            dict(type='RandomBBoxTransform'),
+            dict(input_size=(
+                192,
+                256,
+            ), type='TopdownAffine', use_udp=True),
+            dict(
+                encoder=dict(
+                    heatmap_size=(
+                        48,
+                        64,
+                    ),
+                    input_size=(
+                        192,
+                        256,
+                    ),
+                    sigma=2,
+                    type='UDPHeatmap'),
+                type='GenerateTarget'),
+            dict(type='PackPoseInputs'),
+        ],
+        type='EfreiDataset'),
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(direction='horizontal', type='RandomFlip'),
+    dict(type='RandomHalfBody'),
+    dict(type='RandomBBoxTransform'),
+    dict(input_size=(
+        192,
+        256,
+    ), type='TopdownAffine', use_udp=True),
+    dict(
+        encoder=dict(
+            heatmap_size=(
+                48,
+                64,
+            ),
+            input_size=(
+                192,
+                256,
+            ),
+            sigma=2,
+            type='UDPHeatmap'),
+        type='GenerateTarget'),
+    dict(type='PackPoseInputs'),
+]
+val_cfg = dict()
+val_dataloader = dict(
+    batch_size=32,
+    dataset=dict(
+        ann_file='annotations/test_annotations.json',
+        bbox_file='',
+        data_mode='topdown',
+        data_prefix=dict(img=''),
+        data_root='data/efrei/',
+        metainfo=dict(from_file='configs/_base_/datasets/efrei.py'),
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                192,
+                256,
+            ), type='TopdownAffine', use_udp=True),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='EfreiDataset'),
+    drop_last=False,
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+val_evaluator = [
+    dict(thr=0.05, type='PCKAccuracy'),
+    dict(type='AUC'),
+    dict(type='EPE'),
+]
+val_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(input_size=(
+        192,
+        256,
+    ), type='TopdownAffine', use_udp=True),
+    dict(type='PackPoseInputs'),
+]
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='PoseLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = './work_dirs/ViTPose_small_simple_efrei'
+
+2024/09/06 13:00:43 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+2024/09/06 13:00:43 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+2024/09/06 13:00:45 - mmengine - WARNING - The prefix is not set in metric class PCKAccuracy.
+2024/09/06 13:00:45 - mmengine - WARNING - The prefix is not set in metric class AUC.
+2024/09/06 13:00:45 - mmengine - WARNING - The prefix is not set in metric class EPE.
+2024/09/06 13:00:46 - mmengine - INFO - load model from: https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth
+2024/09/06 13:00:46 - mmengine - INFO - Loads checkpoint by http backend from path: https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth
+2024/09/06 13:00:56 - mmengine - INFO - Resize the pos_embed shape from torch.Size([1, 196, 384]) to torch.Size([1, 192, 384]).
+2024/09/06 13:00:56 - mmengine - WARNING - The model and loaded state dict do not match exactly
+
+unexpected key in source state_dict: cls_token, mask_token
+
+Name of parameter - Initialization information
+
+backbone.pos_embed - torch.Size([1, 192, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.patch_embed.projection.weight - torch.Size([384, 3, 16, 16]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.patch_embed.projection.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.0.ln1.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.0.ln1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.0.attn.qkv.weight - torch.Size([1152, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.0.attn.qkv.bias - torch.Size([1152]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.0.attn.proj.weight - torch.Size([384, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.0.attn.proj.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.0.ln2.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.0.ln2.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.0.ffn.layers.0.0.weight - torch.Size([1536, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.0.ffn.layers.0.0.bias - torch.Size([1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.0.ffn.layers.1.weight - torch.Size([384, 1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.0.ffn.layers.1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.1.ln1.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.1.ln1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.1.attn.qkv.weight - torch.Size([1152, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.1.attn.qkv.bias - torch.Size([1152]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.1.attn.proj.weight - torch.Size([384, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.1.attn.proj.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.1.ln2.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.1.ln2.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.1.ffn.layers.0.0.weight - torch.Size([1536, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.1.ffn.layers.0.0.bias - torch.Size([1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.1.ffn.layers.1.weight - torch.Size([384, 1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.1.ffn.layers.1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.2.ln1.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.2.ln1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.2.attn.qkv.weight - torch.Size([1152, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.2.attn.qkv.bias - torch.Size([1152]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.2.attn.proj.weight - torch.Size([384, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.2.attn.proj.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.2.ln2.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.2.ln2.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.2.ffn.layers.0.0.weight - torch.Size([1536, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.2.ffn.layers.0.0.bias - torch.Size([1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.2.ffn.layers.1.weight - torch.Size([384, 1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.2.ffn.layers.1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.3.ln1.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.3.ln1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.3.attn.qkv.weight - torch.Size([1152, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.3.attn.qkv.bias - torch.Size([1152]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.3.attn.proj.weight - torch.Size([384, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.3.attn.proj.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.3.ln2.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.3.ln2.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.3.ffn.layers.0.0.weight - torch.Size([1536, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.3.ffn.layers.0.0.bias - torch.Size([1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.3.ffn.layers.1.weight - torch.Size([384, 1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.3.ffn.layers.1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.4.ln1.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.4.ln1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.4.attn.qkv.weight - torch.Size([1152, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.4.attn.qkv.bias - torch.Size([1152]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.4.attn.proj.weight - torch.Size([384, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.4.attn.proj.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.4.ln2.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.4.ln2.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.4.ffn.layers.0.0.weight - torch.Size([1536, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.4.ffn.layers.0.0.bias - torch.Size([1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.4.ffn.layers.1.weight - torch.Size([384, 1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.4.ffn.layers.1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.5.ln1.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.5.ln1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.5.attn.qkv.weight - torch.Size([1152, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.5.attn.qkv.bias - torch.Size([1152]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.5.attn.proj.weight - torch.Size([384, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.5.attn.proj.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.5.ln2.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.5.ln2.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.5.ffn.layers.0.0.weight - torch.Size([1536, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.5.ffn.layers.0.0.bias - torch.Size([1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.5.ffn.layers.1.weight - torch.Size([384, 1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.5.ffn.layers.1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.6.ln1.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.6.ln1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.6.attn.qkv.weight - torch.Size([1152, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.6.attn.qkv.bias - torch.Size([1152]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.6.attn.proj.weight - torch.Size([384, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.6.attn.proj.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.6.ln2.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.6.ln2.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.6.ffn.layers.0.0.weight - torch.Size([1536, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.6.ffn.layers.0.0.bias - torch.Size([1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.6.ffn.layers.1.weight - torch.Size([384, 1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.6.ffn.layers.1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.7.ln1.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.7.ln1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.7.attn.qkv.weight - torch.Size([1152, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.7.attn.qkv.bias - torch.Size([1152]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.7.attn.proj.weight - torch.Size([384, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.7.attn.proj.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.7.ln2.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.7.ln2.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.7.ffn.layers.0.0.weight - torch.Size([1536, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.7.ffn.layers.0.0.bias - torch.Size([1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.7.ffn.layers.1.weight - torch.Size([384, 1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.7.ffn.layers.1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.8.ln1.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.8.ln1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.8.attn.qkv.weight - torch.Size([1152, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.8.attn.qkv.bias - torch.Size([1152]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.8.attn.proj.weight - torch.Size([384, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.8.attn.proj.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.8.ln2.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.8.ln2.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.8.ffn.layers.0.0.weight - torch.Size([1536, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.8.ffn.layers.0.0.bias - torch.Size([1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.8.ffn.layers.1.weight - torch.Size([384, 1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.8.ffn.layers.1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.9.ln1.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.9.ln1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.9.attn.qkv.weight - torch.Size([1152, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.9.attn.qkv.bias - torch.Size([1152]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.9.attn.proj.weight - torch.Size([384, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.9.attn.proj.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.9.ln2.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.9.ln2.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.9.ffn.layers.0.0.weight - torch.Size([1536, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.9.ffn.layers.0.0.bias - torch.Size([1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.9.ffn.layers.1.weight - torch.Size([384, 1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.9.ffn.layers.1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.10.ln1.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.10.ln1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.10.attn.qkv.weight - torch.Size([1152, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.10.attn.qkv.bias - torch.Size([1152]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.10.attn.proj.weight - torch.Size([384, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.10.attn.proj.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.10.ln2.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.10.ln2.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.10.ffn.layers.0.0.weight - torch.Size([1536, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.10.ffn.layers.0.0.bias - torch.Size([1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.10.ffn.layers.1.weight - torch.Size([384, 1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.10.ffn.layers.1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.11.ln1.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.11.ln1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.11.attn.qkv.weight - torch.Size([1152, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.11.attn.qkv.bias - torch.Size([1152]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.11.attn.proj.weight - torch.Size([384, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.11.attn.proj.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.11.ln2.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.11.ln2.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.11.ffn.layers.0.0.weight - torch.Size([1536, 384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.11.ffn.layers.0.0.bias - torch.Size([1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.11.ffn.layers.1.weight - torch.Size([384, 1536]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.layers.11.ffn.layers.1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.ln1.weight - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+backbone.ln1.bias - torch.Size([384]): 
+PretrainedInit: load from https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small_20230913.pth 
+
+head.final_layer.weight - torch.Size([28, 384, 3, 3]): 
+NormalInit: mean=0, std=0.001, bias=0 
+
+head.final_layer.bias - torch.Size([28]): 
+NormalInit: mean=0, std=0.001, bias=0 
+2024/09/06 13:00:56 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+2024/09/06 13:00:56 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+2024/09/06 13:00:56 - mmengine - INFO - Checkpoints will be saved to /home/featurize/mmpose/work_dirs/ViTPose_small_simple_efrei.
+2024/09/06 13:01:26 - mmengine - INFO - Epoch(train)   [1][50/95]  base_lr: 4.954910e-05 lr: 2.723990e-06  eta: 3:21:40  time: 0.608081  data_time: 0.161179  memory: 7116  grad_norm: 0.024491  loss: 0.002574  loss_kpt: 0.002574  acc_pose: 0.147051
+2024/09/06 13:01:51 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:02:20 - mmengine - INFO - Epoch(train)   [2][50/95]  base_lr: 1.446443e-04 lr: 7.951904e-06  eta: 3:12:20  time: 0.577925  data_time: 0.156883  memory: 7116  grad_norm: 0.008583  loss: 0.002024  loss_kpt: 0.002024  acc_pose: 0.410324
+2024/09/06 13:02:45 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:03:13 - mmengine - INFO - Epoch(train)   [3][50/95]  base_lr: 2.397395e-04 lr: 1.317982e-05  eta: 3:08:25  time: 0.569687  data_time: 0.147589  memory: 7116  grad_norm: 0.012247  loss: 0.001524  loss_kpt: 0.001524  acc_pose: 0.577955
+2024/09/06 13:03:38 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:04:07 - mmengine - INFO - Epoch(train)   [4][50/95]  base_lr: 3.348347e-04 lr: 1.840773e-05  eta: 3:06:30  time: 0.572878  data_time: 0.145251  memory: 7116  grad_norm: 0.010596  loss: 0.001330  loss_kpt: 0.001330  acc_pose: 0.619149
+2024/09/06 13:04:32 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:05:02 - mmengine - INFO - Epoch(train)   [5][50/95]  base_lr: 4.299299e-04 lr: 2.363564e-05  eta: 3:06:02  time: 0.596079  data_time: 0.148646  memory: 7116  grad_norm: 0.008543  loss: 0.001238  loss_kpt: 0.001238  acc_pose: 0.653120
+2024/09/06 13:05:27 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:05:57 - mmengine - INFO - Epoch(train)   [6][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 3:05:32  time: 0.593187  data_time: 0.155267  memory: 7116  grad_norm: 0.006873  loss: 0.001165  loss_kpt: 0.001165  acc_pose: 0.655689
+2024/09/06 13:06:22 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:06:51 - mmengine - INFO - Epoch(train)   [7][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 3:04:19  time: 0.579475  data_time: 0.146377  memory: 7116  grad_norm: 0.005089  loss: 0.001101  loss_kpt: 0.001101  acc_pose: 0.696493
+2024/09/06 13:07:16 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:07:46 - mmengine - INFO - Epoch(train)   [8][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 3:03:44  time: 0.591741  data_time: 0.158301  memory: 7116  grad_norm: 0.004455  loss: 0.001052  loss_kpt: 0.001052  acc_pose: 0.680896
+2024/09/06 13:08:11 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:08:40 - mmengine - INFO - Epoch(train)   [9][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 3:02:54  time: 0.579868  data_time: 0.156561  memory: 7116  grad_norm: 0.004005  loss: 0.001015  loss_kpt: 0.001015  acc_pose: 0.736864
+2024/09/06 13:09:05 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:09:34 - mmengine - INFO - Epoch(train)  [10][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 3:01:41  time: 0.572298  data_time: 0.144738  memory: 7116  grad_norm: 0.004097  loss: 0.000983  loss_kpt: 0.000983  acc_pose: 0.762268
+2024/09/06 13:09:59 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:09:59 - mmengine - INFO - Saving checkpoint at 10 epochs
+2024/09/06 13:10:12 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 13:10:12 - mmengine - INFO - Evaluating AUC...
+2024/09/06 13:10:12 - mmengine - INFO - Evaluating EPE...
+2024/09/06 13:10:12 - mmengine - INFO - Epoch(val) [10][43/43]    PCK: 0.729088  AUC: 0.677823  EPE: 16.518323  data_time: 0.044936  time: 0.275016
+2024/09/06 13:10:13 - mmengine - INFO - The best checkpoint with 0.7291 PCK at 10 epoch is saved to best_PCK_epoch_10.pth.
+2024/09/06 13:10:43 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:10:43 - mmengine - INFO - Epoch(train)  [11][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 3:00:37  time: 0.575523  data_time: 0.150321  memory: 7116  grad_norm: 0.003465  loss: 0.000940  loss_kpt: 0.000940  acc_pose: 0.749248
+2024/09/06 13:11:09 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:11:38 - mmengine - INFO - Epoch(train)  [12][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:59:53  time: 0.594728  data_time: 0.149378  memory: 7116  grad_norm: 0.003752  loss: 0.000912  loss_kpt: 0.000912  acc_pose: 0.778338
+2024/09/06 13:12:04 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:12:33 - mmengine - INFO - Epoch(train)  [13][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:59:02  time: 0.582724  data_time: 0.141340  memory: 7116  grad_norm: 0.003425  loss: 0.000880  loss_kpt: 0.000880  acc_pose: 0.726438
+2024/09/06 13:12:59 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:13:28 - mmengine - INFO - Epoch(train)  [14][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:58:13  time: 0.582746  data_time: 0.152876  memory: 7116  grad_norm: 0.003568  loss: 0.000861  loss_kpt: 0.000861  acc_pose: 0.734653
+2024/09/06 13:13:50 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:14:19 - mmengine - INFO - Epoch(train)  [15][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:56:32  time: 0.574328  data_time: 0.156364  memory: 7116  grad_norm: 0.003228  loss: 0.000844  loss_kpt: 0.000844  acc_pose: 0.790355
+2024/09/06 13:14:45 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:15:13 - mmengine - INFO - Epoch(train)  [16][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:55:41  time: 0.571210  data_time: 0.146799  memory: 7116  grad_norm: 0.003405  loss: 0.000824  loss_kpt: 0.000824  acc_pose: 0.782716
+2024/09/06 13:15:38 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:16:08 - mmengine - INFO - Epoch(train)  [17][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:54:56  time: 0.599312  data_time: 0.162847  memory: 7116  grad_norm: 0.003038  loss: 0.000801  loss_kpt: 0.000801  acc_pose: 0.782523
+2024/09/06 13:16:34 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:17:04 - mmengine - INFO - Epoch(train)  [18][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:54:21  time: 0.599562  data_time: 0.155554  memory: 7116  grad_norm: 0.003189  loss: 0.000794  loss_kpt: 0.000794  acc_pose: 0.770619
+2024/09/06 13:17:29 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:17:59 - mmengine - INFO - Epoch(train)  [19][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:53:27  time: 0.583730  data_time: 0.157285  memory: 7116  grad_norm: 0.003170  loss: 0.000790  loss_kpt: 0.000790  acc_pose: 0.801637
+2024/09/06 13:18:24 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:18:53 - mmengine - INFO - Epoch(train)  [20][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:52:31  time: 0.579614  data_time: 0.150665  memory: 7116  grad_norm: 0.003158  loss: 0.000754  loss_kpt: 0.000754  acc_pose: 0.786849
+2024/09/06 13:19:18 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:19:18 - mmengine - INFO - Saving checkpoint at 20 epochs
+2024/09/06 13:19:32 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 13:19:32 - mmengine - INFO - Evaluating AUC...
+2024/09/06 13:19:32 - mmengine - INFO - Evaluating EPE...
+2024/09/06 13:19:32 - mmengine - INFO - Epoch(val) [20][43/43]    PCK: 0.786583  AUC: 0.723094  EPE: 14.151432  data_time: 0.044351  time: 0.281818
+2024/09/06 13:19:32 - mmengine - INFO - The previous best checkpoint /home/featurize/mmpose/work_dirs/ViTPose_small_simple_efrei/best_PCK_epoch_10.pth is removed
+2024/09/06 13:19:33 - mmengine - INFO - The best checkpoint with 0.7866 PCK at 20 epoch is saved to best_PCK_epoch_20.pth.
+2024/09/06 13:20:05 - mmengine - INFO - Epoch(train)  [21][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:51:41  time: 0.589967  data_time: 0.155533  memory: 7116  grad_norm: 0.003119  loss: 0.000732  loss_kpt: 0.000732  acc_pose: 0.800336
+2024/09/06 13:20:30 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:20:34 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:21:00 - mmengine - INFO - Epoch(train)  [22][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:50:53  time: 0.598415  data_time: 0.155203  memory: 7116  grad_norm: 0.003174  loss: 0.000734  loss_kpt: 0.000734  acc_pose: 0.816188
+2024/09/06 13:21:25 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:21:54 - mmengine - INFO - Epoch(train)  [23][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:50:01  time: 0.591579  data_time: 0.146603  memory: 7116  grad_norm: 0.003146  loss: 0.000701  loss_kpt: 0.000701  acc_pose: 0.785345
+2024/09/06 13:22:20 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:22:49 - mmengine - INFO - Epoch(train)  [24][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:49:10  time: 0.582286  data_time: 0.146292  memory: 7116  grad_norm: 0.003000  loss: 0.000696  loss_kpt: 0.000696  acc_pose: 0.827396
+2024/09/06 13:23:14 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:23:43 - mmengine - INFO - Epoch(train)  [25][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:48:12  time: 0.572091  data_time: 0.147404  memory: 7116  grad_norm: 0.003173  loss: 0.000672  loss_kpt: 0.000672  acc_pose: 0.779733
+2024/09/06 13:24:08 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:24:37 - mmengine - INFO - Epoch(train)  [26][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:47:15  time: 0.588923  data_time: 0.144558  memory: 7116  grad_norm: 0.003108  loss: 0.000671  loss_kpt: 0.000671  acc_pose: 0.828666
+2024/09/06 13:25:03 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:25:32 - mmengine - INFO - Epoch(train)  [27][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:46:24  time: 0.585842  data_time: 0.153035  memory: 7116  grad_norm: 0.003062  loss: 0.000650  loss_kpt: 0.000650  acc_pose: 0.850378
+2024/09/06 13:25:57 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:26:26 - mmengine - INFO - Epoch(train)  [28][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:45:24  time: 0.570959  data_time: 0.146163  memory: 7116  grad_norm: 0.003112  loss: 0.000645  loss_kpt: 0.000645  acc_pose: 0.865807
+2024/09/06 13:26:50 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:27:20 - mmengine - INFO - Epoch(train)  [29][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:44:29  time: 0.594104  data_time: 0.149854  memory: 7116  grad_norm: 0.003367  loss: 0.000633  loss_kpt: 0.000633  acc_pose: 0.879387
+2024/09/06 13:27:45 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:28:14 - mmengine - INFO - Epoch(train)  [30][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:43:32  time: 0.581027  data_time: 0.145226  memory: 7116  grad_norm: 0.003200  loss: 0.000628  loss_kpt: 0.000628  acc_pose: 0.807362
+2024/09/06 13:28:40 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:28:40 - mmengine - INFO - Saving checkpoint at 30 epochs
+2024/09/06 13:28:53 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 13:28:53 - mmengine - INFO - Evaluating AUC...
+2024/09/06 13:28:53 - mmengine - INFO - Evaluating EPE...
+2024/09/06 13:28:53 - mmengine - INFO - Epoch(val) [30][43/43]    PCK: 0.821034  AUC: 0.753391  EPE: 12.761571  data_time: 0.035646  time: 0.251278
+2024/09/06 13:28:53 - mmengine - INFO - The previous best checkpoint /home/featurize/mmpose/work_dirs/ViTPose_small_simple_efrei/best_PCK_epoch_20.pth is removed
+2024/09/06 13:28:54 - mmengine - INFO - The best checkpoint with 0.8210 PCK at 30 epoch is saved to best_PCK_epoch_30.pth.
+2024/09/06 13:29:25 - mmengine - INFO - Epoch(train)  [31][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:42:46  time: 0.594460  data_time: 0.147254  memory: 7116  grad_norm: 0.002864  loss: 0.000607  loss_kpt: 0.000607  acc_pose: 0.881183
+2024/09/06 13:29:50 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:30:19 - mmengine - INFO - Epoch(train)  [32][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:41:48  time: 0.580694  data_time: 0.145125  memory: 7116  grad_norm: 0.003086  loss: 0.000598  loss_kpt: 0.000598  acc_pose: 0.852285
+2024/09/06 13:30:22 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:30:44 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:31:14 - mmengine - INFO - Epoch(train)  [33][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:40:54  time: 0.582097  data_time: 0.143510  memory: 7116  grad_norm: 0.003344  loss: 0.000614  loss_kpt: 0.000614  acc_pose: 0.836298
+2024/09/06 13:31:39 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:32:08 - mmengine - INFO - Epoch(train)  [34][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:40:01  time: 0.580965  data_time: 0.143895  memory: 7116  grad_norm: 0.003006  loss: 0.000580  loss_kpt: 0.000580  acc_pose: 0.820940
+2024/09/06 13:32:33 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:33:01 - mmengine - INFO - Epoch(train)  [35][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:39:00  time: 0.572983  data_time: 0.143595  memory: 7116  grad_norm: 0.003171  loss: 0.000575  loss_kpt: 0.000575  acc_pose: 0.837986
+2024/09/06 13:33:27 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:33:58 - mmengine - INFO - Epoch(train)  [36][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:38:15  time: 0.609086  data_time: 0.151426  memory: 7116  grad_norm: 0.003021  loss: 0.000563  loss_kpt: 0.000563  acc_pose: 0.840815
+2024/09/06 13:34:22 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:34:51 - mmengine - INFO - Epoch(train)  [37][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:37:16  time: 0.582808  data_time: 0.152553  memory: 7116  grad_norm: 0.003213  loss: 0.000569  loss_kpt: 0.000569  acc_pose: 0.822017
+2024/09/06 13:35:16 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:35:44 - mmengine - INFO - Epoch(train)  [38][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:36:16  time: 0.575314  data_time: 0.149446  memory: 7116  grad_norm: 0.003343  loss: 0.000552  loss_kpt: 0.000552  acc_pose: 0.871565
+2024/09/06 13:36:09 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:36:37 - mmengine - INFO - Epoch(train)  [39][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:35:14  time: 0.564954  data_time: 0.140821  memory: 7116  grad_norm: 0.003137  loss: 0.000548  loss_kpt: 0.000548  acc_pose: 0.833169
+2024/09/06 13:37:02 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:37:32 - mmengine - INFO - Epoch(train)  [40][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:34:22  time: 0.591482  data_time: 0.144175  memory: 7116  grad_norm: 0.002975  loss: 0.000532  loss_kpt: 0.000532  acc_pose: 0.898224
+2024/09/06 13:37:57 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:37:57 - mmengine - INFO - Saving checkpoint at 40 epochs
+2024/09/06 13:38:10 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 13:38:10 - mmengine - INFO - Evaluating AUC...
+2024/09/06 13:38:10 - mmengine - INFO - Evaluating EPE...
+2024/09/06 13:38:10 - mmengine - INFO - Epoch(val) [40][43/43]    PCK: 0.836784  AUC: 0.766285  EPE: 12.679881  data_time: 0.032588  time: 0.258440
+2024/09/06 13:38:10 - mmengine - INFO - The previous best checkpoint /home/featurize/mmpose/work_dirs/ViTPose_small_simple_efrei/best_PCK_epoch_30.pth is removed
+2024/09/06 13:38:11 - mmengine - INFO - The best checkpoint with 0.8368 PCK at 40 epoch is saved to best_PCK_epoch_40.pth.
+2024/09/06 13:38:41 - mmengine - INFO - Epoch(train)  [41][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:33:25  time: 0.563690  data_time: 0.144278  memory: 7116  grad_norm: 0.002810  loss: 0.000510  loss_kpt: 0.000510  acc_pose: 0.869653
+2024/09/06 13:39:06 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:39:32 - mmengine - INFO - Epoch(train)  [42][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:32:16  time: 0.518000  data_time: 0.147082  memory: 7116  grad_norm: 0.003020  loss: 0.000510  loss_kpt: 0.000510  acc_pose: 0.845048
+2024/09/06 13:39:56 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:40:02 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:40:25 - mmengine - INFO - Epoch(train)  [43][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:31:15  time: 0.577169  data_time: 0.140413  memory: 7116  grad_norm: 0.003046  loss: 0.000514  loss_kpt: 0.000514  acc_pose: 0.890070
+2024/09/06 13:40:49 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:41:18 - mmengine - INFO - Epoch(train)  [44][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:30:19  time: 0.581418  data_time: 0.150758  memory: 7116  grad_norm: 0.002958  loss: 0.000512  loss_kpt: 0.000512  acc_pose: 0.852247
+2024/09/06 13:41:43 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:42:11 - mmengine - INFO - Epoch(train)  [45][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:29:20  time: 0.566151  data_time: 0.148658  memory: 7116  grad_norm: 0.003003  loss: 0.000500  loss_kpt: 0.000500  acc_pose: 0.854835
+2024/09/06 13:42:36 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:43:05 - mmengine - INFO - Epoch(train)  [46][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:28:25  time: 0.580678  data_time: 0.147170  memory: 7116  grad_norm: 0.003025  loss: 0.000498  loss_kpt: 0.000498  acc_pose: 0.898051
+2024/09/06 13:43:31 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:44:00 - mmengine - INFO - Epoch(train)  [47][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:27:33  time: 0.585593  data_time: 0.152307  memory: 7116  grad_norm: 0.002986  loss: 0.000499  loss_kpt: 0.000499  acc_pose: 0.886481
+2024/09/06 13:44:25 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:44:54 - mmengine - INFO - Epoch(train)  [48][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:26:40  time: 0.577575  data_time: 0.147383  memory: 7116  grad_norm: 0.002828  loss: 0.000488  loss_kpt: 0.000488  acc_pose: 0.888844
+2024/09/06 13:45:20 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:45:48 - mmengine - INFO - Epoch(train)  [49][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:25:46  time: 0.578841  data_time: 0.144533  memory: 7116  grad_norm: 0.003628  loss: 0.000491  loss_kpt: 0.000491  acc_pose: 0.891980
+2024/09/06 13:46:14 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:46:42 - mmengine - INFO - Epoch(train)  [50][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:24:50  time: 0.571280  data_time: 0.148066  memory: 7116  grad_norm: 0.003059  loss: 0.000486  loss_kpt: 0.000486  acc_pose: 0.885132
+2024/09/06 13:47:07 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:47:07 - mmengine - INFO - Saving checkpoint at 50 epochs
+2024/09/06 13:47:20 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 13:47:20 - mmengine - INFO - Evaluating AUC...
+2024/09/06 13:47:20 - mmengine - INFO - Evaluating EPE...
+2024/09/06 13:47:20 - mmengine - INFO - Epoch(val) [50][43/43]    PCK: 0.841472  AUC: 0.772358  EPE: 12.175077  data_time: 0.031474  time: 0.255034
+2024/09/06 13:47:20 - mmengine - INFO - The previous best checkpoint /home/featurize/mmpose/work_dirs/ViTPose_small_simple_efrei/best_PCK_epoch_40.pth is removed
+2024/09/06 13:47:21 - mmengine - INFO - The best checkpoint with 0.8415 PCK at 50 epoch is saved to best_PCK_epoch_50.pth.
+2024/09/06 13:47:52 - mmengine - INFO - Epoch(train)  [51][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:23:55  time: 0.581472  data_time: 0.148744  memory: 7116  grad_norm: 0.002724  loss: 0.000463  loss_kpt: 0.000463  acc_pose: 0.845073
+2024/09/06 13:48:17 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:48:46 - mmengine - INFO - Epoch(train)  [52][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:23:03  time: 0.588834  data_time: 0.146145  memory: 7116  grad_norm: 0.002792  loss: 0.000468  loss_kpt: 0.000468  acc_pose: 0.897707
+2024/09/06 13:49:11 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:49:41 - mmengine - INFO - Epoch(train)  [53][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:22:09  time: 0.585833  data_time: 0.150294  memory: 7116  grad_norm: 0.002805  loss: 0.000467  loss_kpt: 0.000467  acc_pose: 0.858658
+2024/09/06 13:49:46 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:50:05 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:50:34 - mmengine - INFO - Epoch(train)  [54][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:21:13  time: 0.575317  data_time: 0.149927  memory: 7116  grad_norm: 0.002857  loss: 0.000458  loss_kpt: 0.000458  acc_pose: 0.889638
+2024/09/06 13:50:59 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:51:27 - mmengine - INFO - Epoch(train)  [55][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:20:15  time: 0.566512  data_time: 0.143891  memory: 7116  grad_norm: 0.003034  loss: 0.000465  loss_kpt: 0.000465  acc_pose: 0.884578
+2024/09/06 13:51:52 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:52:22 - mmengine - INFO - Epoch(train)  [56][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:19:22  time: 0.589890  data_time: 0.146738  memory: 7116  grad_norm: 0.003094  loss: 0.000469  loss_kpt: 0.000469  acc_pose: 0.880049
+2024/09/06 13:52:46 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:53:15 - mmengine - INFO - Epoch(train)  [57][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:18:26  time: 0.574489  data_time: 0.140963  memory: 7116  grad_norm: 0.003073  loss: 0.000454  loss_kpt: 0.000454  acc_pose: 0.883302
+2024/09/06 13:53:40 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:54:08 - mmengine - INFO - Epoch(train)  [58][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:17:29  time: 0.563560  data_time: 0.151702  memory: 7116  grad_norm: 0.002916  loss: 0.000471  loss_kpt: 0.000471  acc_pose: 0.906161
+2024/09/06 13:54:33 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:55:01 - mmengine - INFO - Epoch(train)  [59][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:16:32  time: 0.570074  data_time: 0.148238  memory: 7116  grad_norm: 0.003348  loss: 0.000476  loss_kpt: 0.000476  acc_pose: 0.885288
+2024/09/06 13:55:26 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:55:55 - mmengine - INFO - Epoch(train)  [60][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:15:37  time: 0.577137  data_time: 0.149412  memory: 7116  grad_norm: 0.002790  loss: 0.000448  loss_kpt: 0.000448  acc_pose: 0.887757
+2024/09/06 13:56:20 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:56:20 - mmengine - INFO - Saving checkpoint at 60 epochs
+2024/09/06 13:56:32 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 13:56:32 - mmengine - INFO - Evaluating AUC...
+2024/09/06 13:56:32 - mmengine - INFO - Evaluating EPE...
+2024/09/06 13:56:32 - mmengine - INFO - Epoch(val) [60][43/43]    PCK: 0.843526  AUC: 0.774210  EPE: 12.126198  data_time: 0.032008  time: 0.244844
+2024/09/06 13:56:32 - mmengine - INFO - The previous best checkpoint /home/featurize/mmpose/work_dirs/ViTPose_small_simple_efrei/best_PCK_epoch_50.pth is removed
+2024/09/06 13:56:33 - mmengine - INFO - The best checkpoint with 0.8435 PCK at 60 epoch is saved to best_PCK_epoch_60.pth.
+2024/09/06 13:57:04 - mmengine - INFO - Epoch(train)  [61][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:14:43  time: 0.583312  data_time: 0.148271  memory: 7116  grad_norm: 0.003128  loss: 0.000438  loss_kpt: 0.000438  acc_pose: 0.874001
+2024/09/06 13:57:29 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:57:58 - mmengine - INFO - Epoch(train)  [62][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:13:49  time: 0.586118  data_time: 0.148454  memory: 7116  grad_norm: 0.002701  loss: 0.000443  loss_kpt: 0.000443  acc_pose: 0.883641
+2024/09/06 13:58:22 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:58:52 - mmengine - INFO - Epoch(train)  [63][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:12:55  time: 0.594151  data_time: 0.145732  memory: 7116  grad_norm: 0.002589  loss: 0.000430  loss_kpt: 0.000430  acc_pose: 0.883888
+2024/09/06 13:59:17 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:59:26 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 13:59:46 - mmengine - INFO - Epoch(train)  [64][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:12:01  time: 0.583869  data_time: 0.150271  memory: 7116  grad_norm: 0.002725  loss: 0.000443  loss_kpt: 0.000443  acc_pose: 0.871341
+2024/09/06 14:00:11 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:00:41 - mmengine - INFO - Epoch(train)  [65][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:11:08  time: 0.586576  data_time: 0.145543  memory: 7116  grad_norm: 0.002954  loss: 0.000427  loss_kpt: 0.000427  acc_pose: 0.885128
+2024/09/06 14:01:06 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:01:36 - mmengine - INFO - Epoch(train)  [66][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:10:16  time: 0.596010  data_time: 0.143986  memory: 7116  grad_norm: 0.002479  loss: 0.000423  loss_kpt: 0.000423  acc_pose: 0.852975
+2024/09/06 14:02:01 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:02:31 - mmengine - INFO - Epoch(train)  [67][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:09:25  time: 0.599254  data_time: 0.144177  memory: 7116  grad_norm: 0.002583  loss: 0.000425  loss_kpt: 0.000425  acc_pose: 0.871261
+2024/09/06 14:02:56 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:03:25 - mmengine - INFO - Epoch(train)  [68][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:08:30  time: 0.582864  data_time: 0.143680  memory: 7116  grad_norm: 0.002305  loss: 0.000419  loss_kpt: 0.000419  acc_pose: 0.910711
+2024/09/06 14:03:50 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:04:20 - mmengine - INFO - Epoch(train)  [69][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:07:37  time: 0.592404  data_time: 0.149591  memory: 7116  grad_norm: 0.002908  loss: 0.000421  loss_kpt: 0.000421  acc_pose: 0.867525
+2024/09/06 14:04:45 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:05:13 - mmengine - INFO - Epoch(train)  [70][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:06:40  time: 0.542874  data_time: 0.155614  memory: 7116  grad_norm: 0.002810  loss: 0.000420  loss_kpt: 0.000420  acc_pose: 0.903638
+2024/09/06 14:05:35 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:05:35 - mmengine - INFO - Saving checkpoint at 70 epochs
+2024/09/06 14:05:48 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 14:05:48 - mmengine - INFO - Evaluating AUC...
+2024/09/06 14:05:48 - mmengine - INFO - Evaluating EPE...
+2024/09/06 14:05:48 - mmengine - INFO - Epoch(val) [70][43/43]    PCK: 0.846423  AUC: 0.778785  EPE: 11.358802  data_time: 0.030342  time: 0.255013
+2024/09/06 14:05:48 - mmengine - INFO - The previous best checkpoint /home/featurize/mmpose/work_dirs/ViTPose_small_simple_efrei/best_PCK_epoch_60.pth is removed
+2024/09/06 14:05:49 - mmengine - INFO - The best checkpoint with 0.8464 PCK at 70 epoch is saved to best_PCK_epoch_70.pth.
+2024/09/06 14:06:20 - mmengine - INFO - Epoch(train)  [71][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:05:42  time: 0.584949  data_time: 0.150191  memory: 7116  grad_norm: 0.002405  loss: 0.000404  loss_kpt: 0.000404  acc_pose: 0.904903
+2024/09/06 14:06:45 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:07:14 - mmengine - INFO - Epoch(train)  [72][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:04:49  time: 0.585192  data_time: 0.143169  memory: 7116  grad_norm: 0.002632  loss: 0.000408  loss_kpt: 0.000408  acc_pose: 0.903591
+2024/09/06 14:07:39 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:08:08 - mmengine - INFO - Epoch(train)  [73][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:03:55  time: 0.583182  data_time: 0.151912  memory: 7116  grad_norm: 0.002538  loss: 0.000416  loss_kpt: 0.000416  acc_pose: 0.901789
+2024/09/06 14:08:33 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:09:02 - mmengine - INFO - Epoch(train)  [74][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:03:00  time: 0.583530  data_time: 0.149397  memory: 7116  grad_norm: 0.002397  loss: 0.000403  loss_kpt: 0.000403  acc_pose: 0.906078
+2024/09/06 14:09:11 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:09:27 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:09:57 - mmengine - INFO - Epoch(train)  [75][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:02:07  time: 0.587037  data_time: 0.143428  memory: 7116  grad_norm: 0.002441  loss: 0.000406  loss_kpt: 0.000406  acc_pose: 0.884358
+2024/09/06 14:10:23 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:10:52 - mmengine - INFO - Epoch(train)  [76][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:01:15  time: 0.576296  data_time: 0.149349  memory: 7116  grad_norm: 0.002740  loss: 0.000418  loss_kpt: 0.000418  acc_pose: 0.855021
+2024/09/06 14:11:17 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:11:47 - mmengine - INFO - Epoch(train)  [77][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 2:00:23  time: 0.597910  data_time: 0.156987  memory: 7116  grad_norm: 0.002721  loss: 0.000399  loss_kpt: 0.000399  acc_pose: 0.911893
+2024/09/06 14:12:13 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:12:43 - mmengine - INFO - Epoch(train)  [78][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:59:32  time: 0.603118  data_time: 0.156028  memory: 7116  grad_norm: 0.002566  loss: 0.000406  loss_kpt: 0.000406  acc_pose: 0.916539
+2024/09/06 14:13:09 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:13:38 - mmengine - INFO - Epoch(train)  [79][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:58:38  time: 0.581464  data_time: 0.146983  memory: 7116  grad_norm: 0.002265  loss: 0.000393  loss_kpt: 0.000393  acc_pose: 0.909693
+2024/09/06 14:14:02 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:14:31 - mmengine - INFO - Epoch(train)  [80][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:57:44  time: 0.581628  data_time: 0.153686  memory: 7116  grad_norm: 0.002631  loss: 0.000398  loss_kpt: 0.000398  acc_pose: 0.918073
+2024/09/06 14:14:57 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:14:57 - mmengine - INFO - Saving checkpoint at 80 epochs
+2024/09/06 14:15:13 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 14:15:13 - mmengine - INFO - Evaluating AUC...
+2024/09/06 14:15:13 - mmengine - INFO - Evaluating EPE...
+2024/09/06 14:15:13 - mmengine - INFO - Epoch(val) [80][43/43]    PCK: 0.859145  AUC: 0.786780  EPE: 11.652103  data_time: 0.031223  time: 0.247486
+2024/09/06 14:15:13 - mmengine - INFO - The previous best checkpoint /home/featurize/mmpose/work_dirs/ViTPose_small_simple_efrei/best_PCK_epoch_70.pth is removed
+2024/09/06 14:15:14 - mmengine - INFO - The best checkpoint with 0.8591 PCK at 80 epoch is saved to best_PCK_epoch_80.pth.
+2024/09/06 14:15:45 - mmengine - INFO - Epoch(train)  [81][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:56:50  time: 0.592098  data_time: 0.160604  memory: 7116  grad_norm: 0.002321  loss: 0.000385  loss_kpt: 0.000385  acc_pose: 0.902178
+2024/09/06 14:16:10 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:16:40 - mmengine - INFO - Epoch(train)  [82][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:55:58  time: 0.601375  data_time: 0.158407  memory: 7116  grad_norm: 0.002494  loss: 0.000397  loss_kpt: 0.000397  acc_pose: 0.906607
+2024/09/06 14:17:05 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:17:35 - mmengine - INFO - Epoch(train)  [83][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:55:05  time: 0.588690  data_time: 0.153415  memory: 7116  grad_norm: 0.002685  loss: 0.000400  loss_kpt: 0.000400  acc_pose: 0.910470
+2024/09/06 14:17:59 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:18:28 - mmengine - INFO - Epoch(train)  [84][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:54:09  time: 0.575382  data_time: 0.148949  memory: 7116  grad_norm: 0.002475  loss: 0.000388  loss_kpt: 0.000388  acc_pose: 0.921595
+2024/09/06 14:18:53 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:19:05 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:19:22 - mmengine - INFO - Epoch(train)  [85][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:53:14  time: 0.577484  data_time: 0.152086  memory: 7116  grad_norm: 0.002500  loss: 0.000399  loss_kpt: 0.000399  acc_pose: 0.907993
+2024/09/06 14:19:46 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:20:16 - mmengine - INFO - Epoch(train)  [86][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:52:20  time: 0.581167  data_time: 0.148206  memory: 7116  grad_norm: 0.002350  loss: 0.000391  loss_kpt: 0.000391  acc_pose: 0.902495
+2024/09/06 14:20:41 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:21:09 - mmengine - INFO - Epoch(train)  [87][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:51:25  time: 0.571744  data_time: 0.143201  memory: 7116  grad_norm: 0.002418  loss: 0.000392  loss_kpt: 0.000392  acc_pose: 0.909768
+2024/09/06 14:21:34 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:22:03 - mmengine - INFO - Epoch(train)  [88][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:50:30  time: 0.571530  data_time: 0.146591  memory: 7116  grad_norm: 0.002266  loss: 0.000378  loss_kpt: 0.000378  acc_pose: 0.917434
+2024/09/06 14:22:28 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:22:57 - mmengine - INFO - Epoch(train)  [89][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:49:36  time: 0.585610  data_time: 0.155410  memory: 7116  grad_norm: 0.002501  loss: 0.000383  loss_kpt: 0.000383  acc_pose: 0.891908
+2024/09/06 14:23:23 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:23:52 - mmengine - INFO - Epoch(train)  [90][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:48:43  time: 0.581055  data_time: 0.149604  memory: 7116  grad_norm: 0.002286  loss: 0.000373  loss_kpt: 0.000373  acc_pose: 0.902446
+2024/09/06 14:24:17 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:24:17 - mmengine - INFO - Saving checkpoint at 90 epochs
+2024/09/06 14:24:30 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 14:24:30 - mmengine - INFO - Evaluating AUC...
+2024/09/06 14:24:30 - mmengine - INFO - Evaluating EPE...
+2024/09/06 14:24:30 - mmengine - INFO - Epoch(val) [90][43/43]    PCK: 0.853719  AUC: 0.785195  EPE: 11.746266  data_time: 0.033570  time: 0.256718
+2024/09/06 14:24:59 - mmengine - INFO - Epoch(train)  [91][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:47:48  time: 0.586126  data_time: 0.141061  memory: 7116  grad_norm: 0.002204  loss: 0.000371  loss_kpt: 0.000371  acc_pose: 0.911496
+2024/09/06 14:25:24 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:25:54 - mmengine - INFO - Epoch(train)  [92][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:46:55  time: 0.586017  data_time: 0.155638  memory: 7116  grad_norm: 0.002540  loss: 0.000376  loss_kpt: 0.000376  acc_pose: 0.893822
+2024/09/06 14:26:19 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:26:48 - mmengine - INFO - Epoch(train)  [93][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:46:02  time: 0.595751  data_time: 0.152145  memory: 7116  grad_norm: 0.002937  loss: 0.000383  loss_kpt: 0.000383  acc_pose: 0.917047
+2024/09/06 14:27:14 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:27:42 - mmengine - INFO - Epoch(train)  [94][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:45:07  time: 0.569979  data_time: 0.152430  memory: 7116  grad_norm: 0.002751  loss: 0.000395  loss_kpt: 0.000395  acc_pose: 0.901669
+2024/09/06 14:28:07 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:28:37 - mmengine - INFO - Epoch(train)  [95][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:44:13  time: 0.587876  data_time: 0.151979  memory: 7116  grad_norm: 0.002230  loss: 0.000376  loss_kpt: 0.000376  acc_pose: 0.908852
+2024/09/06 14:28:48 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:29:02 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:29:31 - mmengine - INFO - Epoch(train)  [96][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:43:19  time: 0.585215  data_time: 0.149480  memory: 7116  grad_norm: 0.002086  loss: 0.000366  loss_kpt: 0.000366  acc_pose: 0.913934
+2024/09/06 14:29:57 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:30:27 - mmengine - INFO - Epoch(train)  [97][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:42:27  time: 0.604738  data_time: 0.155856  memory: 7116  grad_norm: 0.002279  loss: 0.000374  loss_kpt: 0.000374  acc_pose: 0.881652
+2024/09/06 14:30:52 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:31:18 - mmengine - INFO - Epoch(train)  [98][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:41:30  time: 0.517941  data_time: 0.152737  memory: 7116  grad_norm: 0.002224  loss: 0.000374  loss_kpt: 0.000374  acc_pose: 0.907125
+2024/09/06 14:31:44 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:32:14 - mmengine - INFO - Epoch(train)  [99][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:40:37  time: 0.593321  data_time: 0.155641  memory: 7116  grad_norm: 0.001872  loss: 0.000357  loss_kpt: 0.000357  acc_pose: 0.911697
+2024/09/06 14:32:39 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:33:09 - mmengine - INFO - Epoch(train) [100][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:39:44  time: 0.600848  data_time: 0.150269  memory: 7116  grad_norm: 0.002581  loss: 0.000372  loss_kpt: 0.000372  acc_pose: 0.902465
+2024/09/06 14:33:35 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:33:35 - mmengine - INFO - Saving checkpoint at 100 epochs
+2024/09/06 14:33:48 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 14:33:48 - mmengine - INFO - Evaluating AUC...
+2024/09/06 14:33:48 - mmengine - INFO - Evaluating EPE...
+2024/09/06 14:33:48 - mmengine - INFO - Epoch(val) [100][43/43]    PCK: 0.849821  AUC: 0.781557  EPE: 11.855876  data_time: 0.035750  time: 0.258950
+2024/09/06 14:34:17 - mmengine - INFO - Epoch(train) [101][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:38:51  time: 0.578384  data_time: 0.146583  memory: 7116  grad_norm: 0.002494  loss: 0.000369  loss_kpt: 0.000369  acc_pose: 0.906694
+2024/09/06 14:34:42 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:35:12 - mmengine - INFO - Epoch(train) [102][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:37:57  time: 0.591056  data_time: 0.147836  memory: 7116  grad_norm: 0.002117  loss: 0.000366  loss_kpt: 0.000366  acc_pose: 0.906594
+2024/09/06 14:35:37 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:36:07 - mmengine - INFO - Epoch(train) [103][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:37:04  time: 0.591893  data_time: 0.155239  memory: 7116  grad_norm: 0.002036  loss: 0.000362  loss_kpt: 0.000362  acc_pose: 0.893174
+2024/09/06 14:36:32 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:37:01 - mmengine - INFO - Epoch(train) [104][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:36:10  time: 0.583450  data_time: 0.150900  memory: 7116  grad_norm: 0.002349  loss: 0.000364  loss_kpt: 0.000364  acc_pose: 0.892709
+2024/09/06 14:37:27 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:37:56 - mmengine - INFO - Epoch(train) [105][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:35:17  time: 0.592325  data_time: 0.151367  memory: 7116  grad_norm: 0.002279  loss: 0.000362  loss_kpt: 0.000362  acc_pose: 0.914198
+2024/09/06 14:38:21 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:38:36 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:38:50 - mmengine - INFO - Epoch(train) [106][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:34:22  time: 0.571068  data_time: 0.146760  memory: 7116  grad_norm: 0.002189  loss: 0.000353  loss_kpt: 0.000353  acc_pose: 0.898987
+2024/09/06 14:39:15 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:39:44 - mmengine - INFO - Epoch(train) [107][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:33:28  time: 0.581793  data_time: 0.151063  memory: 7116  grad_norm: 0.001796  loss: 0.000344  loss_kpt: 0.000344  acc_pose: 0.909306
+2024/09/06 14:40:09 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:40:38 - mmengine - INFO - Epoch(train) [108][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:32:34  time: 0.577257  data_time: 0.158160  memory: 7116  grad_norm: 0.002085  loss: 0.000347  loss_kpt: 0.000347  acc_pose: 0.937009
+2024/09/06 14:41:04 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:41:34 - mmengine - INFO - Epoch(train) [109][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:31:40  time: 0.587698  data_time: 0.151675  memory: 7116  grad_norm: 0.002263  loss: 0.000351  loss_kpt: 0.000351  acc_pose: 0.937038
+2024/09/06 14:41:59 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:42:28 - mmengine - INFO - Epoch(train) [110][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:30:47  time: 0.594934  data_time: 0.153452  memory: 7116  grad_norm: 0.002411  loss: 0.000359  loss_kpt: 0.000359  acc_pose: 0.894653
+2024/09/06 14:42:54 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:42:54 - mmengine - INFO - Saving checkpoint at 110 epochs
+2024/09/06 14:43:07 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 14:43:07 - mmengine - INFO - Evaluating AUC...
+2024/09/06 14:43:07 - mmengine - INFO - Evaluating EPE...
+2024/09/06 14:43:07 - mmengine - INFO - Epoch(val) [110][43/43]    PCK: 0.854878  AUC: 0.787852  EPE: 11.270152  data_time: 0.039143  time: 0.261953
+2024/09/06 14:43:37 - mmengine - INFO - Epoch(train) [111][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:29:53  time: 0.598823  data_time: 0.148217  memory: 7116  grad_norm: 0.002032  loss: 0.000354  loss_kpt: 0.000354  acc_pose: 0.913995
+2024/09/06 14:44:03 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:44:31 - mmengine - INFO - Epoch(train) [112][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:28:59  time: 0.575101  data_time: 0.147309  memory: 7116  grad_norm: 0.001921  loss: 0.000348  loss_kpt: 0.000348  acc_pose: 0.909839
+2024/09/06 14:44:56 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:45:25 - mmengine - INFO - Epoch(train) [113][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:28:04  time: 0.575158  data_time: 0.145086  memory: 7116  grad_norm: 0.002316  loss: 0.000351  loss_kpt: 0.000351  acc_pose: 0.923768
+2024/09/06 14:45:51 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:46:20 - mmengine - INFO - Epoch(train) [114][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:27:11  time: 0.586803  data_time: 0.150220  memory: 7116  grad_norm: 0.002238  loss: 0.000354  loss_kpt: 0.000354  acc_pose: 0.917509
+2024/09/06 14:46:45 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:47:15 - mmengine - INFO - Epoch(train) [115][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:26:17  time: 0.602831  data_time: 0.150819  memory: 7116  grad_norm: 0.002276  loss: 0.000355  loss_kpt: 0.000355  acc_pose: 0.915545
+2024/09/06 14:47:40 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:48:10 - mmengine - INFO - Epoch(train) [116][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:25:23  time: 0.590742  data_time: 0.148389  memory: 7116  grad_norm: 0.002291  loss: 0.000354  loss_kpt: 0.000354  acc_pose: 0.895570
+2024/09/06 14:48:24 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:48:35 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:49:05 - mmengine - INFO - Epoch(train) [117][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:24:30  time: 0.585784  data_time: 0.152030  memory: 7116  grad_norm: 0.001914  loss: 0.000337  loss_kpt: 0.000337  acc_pose: 0.925087
+2024/09/06 14:49:29 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:49:59 - mmengine - INFO - Epoch(train) [118][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:23:36  time: 0.592053  data_time: 0.149884  memory: 7116  grad_norm: 0.002244  loss: 0.000350  loss_kpt: 0.000350  acc_pose: 0.901833
+2024/09/06 14:50:24 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:50:53 - mmengine - INFO - Epoch(train) [119][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:22:42  time: 0.586964  data_time: 0.152103  memory: 7116  grad_norm: 0.002647  loss: 0.000354  loss_kpt: 0.000354  acc_pose: 0.903347
+2024/09/06 14:51:19 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:51:48 - mmengine - INFO - Epoch(train) [120][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:21:48  time: 0.586797  data_time: 0.151156  memory: 7116  grad_norm: 0.002061  loss: 0.000347  loss_kpt: 0.000347  acc_pose: 0.930626
+2024/09/06 14:52:14 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:52:14 - mmengine - INFO - Saving checkpoint at 120 epochs
+2024/09/06 14:52:27 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 14:52:27 - mmengine - INFO - Evaluating AUC...
+2024/09/06 14:52:27 - mmengine - INFO - Evaluating EPE...
+2024/09/06 14:52:27 - mmengine - INFO - Epoch(val) [120][43/43]    PCK: 0.854720  AUC: 0.783894  EPE: 11.600748  data_time: 0.032951  time: 0.251207
+2024/09/06 14:52:57 - mmengine - INFO - Epoch(train) [121][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:20:54  time: 0.589642  data_time: 0.152597  memory: 7116  grad_norm: 0.001658  loss: 0.000339  loss_kpt: 0.000339  acc_pose: 0.906898
+2024/09/06 14:53:22 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:53:52 - mmengine - INFO - Epoch(train) [122][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:20:01  time: 0.595889  data_time: 0.157102  memory: 7116  grad_norm: 0.002261  loss: 0.000341  loss_kpt: 0.000341  acc_pose: 0.937521
+2024/09/06 14:54:17 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:54:46 - mmengine - INFO - Epoch(train) [123][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:19:07  time: 0.592673  data_time: 0.156164  memory: 7116  grad_norm: 0.002229  loss: 0.000348  loss_kpt: 0.000348  acc_pose: 0.938073
+2024/09/06 14:55:12 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:55:42 - mmengine - INFO - Epoch(train) [124][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:18:13  time: 0.602959  data_time: 0.161502  memory: 7116  grad_norm: 0.002041  loss: 0.000347  loss_kpt: 0.000347  acc_pose: 0.869342
+2024/09/06 14:56:08 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:56:37 - mmengine - INFO - Epoch(train) [125][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:17:19  time: 0.586194  data_time: 0.157805  memory: 7116  grad_norm: 0.002497  loss: 0.000351  loss_kpt: 0.000351  acc_pose: 0.925705
+2024/09/06 14:56:57 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:57:21 - mmengine - INFO - Epoch(train) [126][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:16:19  time: 0.484436  data_time: 0.143946  memory: 7116  grad_norm: 0.002231  loss: 0.000346  loss_kpt: 0.000346  acc_pose: 0.895501
+2024/09/06 14:57:47 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:58:05 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:58:17 - mmengine - INFO - Epoch(train) [127][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:15:25  time: 0.595568  data_time: 0.154115  memory: 7116  grad_norm: 0.001992  loss: 0.000338  loss_kpt: 0.000338  acc_pose: 0.915339
+2024/09/06 14:58:42 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 14:59:12 - mmengine - INFO - Epoch(train) [128][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:14:32  time: 0.605201  data_time: 0.164275  memory: 7116  grad_norm: 0.002341  loss: 0.000350  loss_kpt: 0.000350  acc_pose: 0.887985
+2024/09/06 14:59:38 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:00:08 - mmengine - INFO - Epoch(train) [129][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:13:38  time: 0.584573  data_time: 0.148281  memory: 7116  grad_norm: 0.002094  loss: 0.000339  loss_kpt: 0.000339  acc_pose: 0.912294
+2024/09/06 15:00:32 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:01:02 - mmengine - INFO - Epoch(train) [130][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:12:44  time: 0.596192  data_time: 0.157677  memory: 7116  grad_norm: 0.002010  loss: 0.000337  loss_kpt: 0.000337  acc_pose: 0.919547
+2024/09/06 15:01:27 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:01:27 - mmengine - INFO - Saving checkpoint at 130 epochs
+2024/09/06 15:01:40 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 15:01:40 - mmengine - INFO - Evaluating AUC...
+2024/09/06 15:01:40 - mmengine - INFO - Evaluating EPE...
+2024/09/06 15:01:40 - mmengine - INFO - Epoch(val) [130][43/43]    PCK: 0.853930  AUC: 0.788169  EPE: 11.466322  data_time: 0.030445  time: 0.247878
+2024/09/06 15:02:09 - mmengine - INFO - Epoch(train) [131][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:11:50  time: 0.580515  data_time: 0.149873  memory: 7116  grad_norm: 0.002226  loss: 0.000332  loss_kpt: 0.000332  acc_pose: 0.900602
+2024/09/06 15:02:34 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:03:03 - mmengine - INFO - Epoch(train) [132][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:10:55  time: 0.590549  data_time: 0.157214  memory: 7116  grad_norm: 0.001942  loss: 0.000332  loss_kpt: 0.000332  acc_pose: 0.911472
+2024/09/06 15:03:29 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:03:59 - mmengine - INFO - Epoch(train) [133][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:10:02  time: 0.596810  data_time: 0.153999  memory: 7116  grad_norm: 0.001746  loss: 0.000324  loss_kpt: 0.000324  acc_pose: 0.915976
+2024/09/06 15:04:24 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:04:53 - mmengine - INFO - Epoch(train) [134][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:09:08  time: 0.569663  data_time: 0.151003  memory: 7116  grad_norm: 0.002182  loss: 0.000329  loss_kpt: 0.000329  acc_pose: 0.930441
+2024/09/06 15:05:18 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:05:48 - mmengine - INFO - Epoch(train) [135][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:08:14  time: 0.602405  data_time: 0.156299  memory: 7116  grad_norm: 0.001726  loss: 0.000323  loss_kpt: 0.000323  acc_pose: 0.935484
+2024/09/06 15:06:13 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:06:42 - mmengine - INFO - Epoch(train) [136][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:07:20  time: 0.581793  data_time: 0.147831  memory: 7116  grad_norm: 0.001704  loss: 0.000331  loss_kpt: 0.000331  acc_pose: 0.911425
+2024/09/06 15:07:08 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:07:37 - mmengine - INFO - Epoch(train) [137][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:06:26  time: 0.594991  data_time: 0.159372  memory: 7116  grad_norm: 0.001842  loss: 0.000324  loss_kpt: 0.000324  acc_pose: 0.921260
+2024/09/06 15:07:54 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:08:03 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:08:33 - mmengine - INFO - Epoch(train) [138][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:05:32  time: 0.607191  data_time: 0.159140  memory: 7116  grad_norm: 0.002031  loss: 0.000330  loss_kpt: 0.000330  acc_pose: 0.917128
+2024/09/06 15:08:59 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:09:28 - mmengine - INFO - Epoch(train) [139][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:04:38  time: 0.583517  data_time: 0.151968  memory: 7116  grad_norm: 0.002199  loss: 0.000327  loss_kpt: 0.000327  acc_pose: 0.891925
+2024/09/06 15:09:53 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:10:22 - mmengine - INFO - Epoch(train) [140][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:03:44  time: 0.584200  data_time: 0.145926  memory: 7116  grad_norm: 0.001980  loss: 0.000336  loss_kpt: 0.000336  acc_pose: 0.924964
+2024/09/06 15:10:47 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:10:47 - mmengine - INFO - Saving checkpoint at 140 epochs
+2024/09/06 15:11:00 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 15:11:00 - mmengine - INFO - Evaluating AUC...
+2024/09/06 15:11:00 - mmengine - INFO - Evaluating EPE...
+2024/09/06 15:11:00 - mmengine - INFO - Epoch(val) [140][43/43]    PCK: 0.856116  AUC: 0.789071  EPE: 11.237732  data_time: 0.033715  time: 0.256175
+2024/09/06 15:11:30 - mmengine - INFO - Epoch(train) [141][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:02:50  time: 0.600700  data_time: 0.163842  memory: 7116  grad_norm: 0.001840  loss: 0.000331  loss_kpt: 0.000331  acc_pose: 0.905131
+2024/09/06 15:11:55 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:12:24 - mmengine - INFO - Epoch(train) [142][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:01:56  time: 0.588085  data_time: 0.155594  memory: 7116  grad_norm: 0.001763  loss: 0.000320  loss_kpt: 0.000320  acc_pose: 0.931265
+2024/09/06 15:12:49 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:13:19 - mmengine - INFO - Epoch(train) [143][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:01:02  time: 0.588918  data_time: 0.156203  memory: 7116  grad_norm: 0.001971  loss: 0.000316  loss_kpt: 0.000316  acc_pose: 0.916208
+2024/09/06 15:13:44 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:14:13 - mmengine - INFO - Epoch(train) [144][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 1:00:07  time: 0.584877  data_time: 0.163576  memory: 7116  grad_norm: 0.001846  loss: 0.000323  loss_kpt: 0.000323  acc_pose: 0.909495
+2024/09/06 15:14:38 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:15:06 - mmengine - INFO - Epoch(train) [145][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:59:13  time: 0.569788  data_time: 0.144831  memory: 7116  grad_norm: 0.001826  loss: 0.000318  loss_kpt: 0.000318  acc_pose: 0.919413
+2024/09/06 15:15:31 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:16:00 - mmengine - INFO - Epoch(train) [146][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:58:18  time: 0.576956  data_time: 0.148625  memory: 7116  grad_norm: 0.001930  loss: 0.000326  loss_kpt: 0.000326  acc_pose: 0.907690
+2024/09/06 15:16:26 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:16:55 - mmengine - INFO - Epoch(train) [147][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:57:24  time: 0.589319  data_time: 0.153220  memory: 7116  grad_norm: 0.001756  loss: 0.000322  loss_kpt: 0.000322  acc_pose: 0.927443
+2024/09/06 15:17:20 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:17:41 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:17:50 - mmengine - INFO - Epoch(train) [148][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:56:30  time: 0.589691  data_time: 0.151920  memory: 7116  grad_norm: 0.001769  loss: 0.000314  loss_kpt: 0.000314  acc_pose: 0.923661
+2024/09/06 15:18:15 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:18:44 - mmengine - INFO - Epoch(train) [149][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:55:36  time: 0.591161  data_time: 0.155642  memory: 7116  grad_norm: 0.001910  loss: 0.000318  loss_kpt: 0.000318  acc_pose: 0.929834
+2024/09/06 15:19:10 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:19:39 - mmengine - INFO - Epoch(train) [150][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:54:42  time: 0.592723  data_time: 0.154565  memory: 7116  grad_norm: 0.002070  loss: 0.000319  loss_kpt: 0.000319  acc_pose: 0.934918
+2024/09/06 15:20:05 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:20:05 - mmengine - INFO - Saving checkpoint at 150 epochs
+2024/09/06 15:20:21 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 15:20:21 - mmengine - INFO - Evaluating AUC...
+2024/09/06 15:20:21 - mmengine - INFO - Evaluating EPE...
+2024/09/06 15:20:21 - mmengine - INFO - Epoch(val) [150][43/43]    PCK: 0.852139  AUC: 0.786503  EPE: 11.077653  data_time: 0.031375  time: 0.249150
+2024/09/06 15:20:51 - mmengine - INFO - Epoch(train) [151][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:53:48  time: 0.592940  data_time: 0.146270  memory: 7116  grad_norm: 0.002256  loss: 0.000320  loss_kpt: 0.000320  acc_pose: 0.933846
+2024/09/06 15:21:17 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:21:47 - mmengine - INFO - Epoch(train) [152][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:52:54  time: 0.595315  data_time: 0.156893  memory: 7116  grad_norm: 0.001546  loss: 0.000311  loss_kpt: 0.000311  acc_pose: 0.924873
+2024/09/06 15:22:12 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:22:40 - mmengine - INFO - Epoch(train) [153][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:52:00  time: 0.562860  data_time: 0.155629  memory: 7116  grad_norm: 0.001982  loss: 0.000316  loss_kpt: 0.000316  acc_pose: 0.931524
+2024/09/06 15:23:04 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:23:32 - mmengine - INFO - Epoch(train) [154][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:51:04  time: 0.565147  data_time: 0.151681  memory: 7116  grad_norm: 0.002077  loss: 0.000314  loss_kpt: 0.000314  acc_pose: 0.920796
+2024/09/06 15:23:57 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:24:26 - mmengine - INFO - Epoch(train) [155][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:50:10  time: 0.590631  data_time: 0.154699  memory: 7116  grad_norm: 0.001634  loss: 0.000318  loss_kpt: 0.000318  acc_pose: 0.932530
+2024/09/06 15:24:51 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:25:20 - mmengine - INFO - Epoch(train) [156][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:49:16  time: 0.580896  data_time: 0.154861  memory: 7116  grad_norm: 0.001729  loss: 0.000318  loss_kpt: 0.000318  acc_pose: 0.926804
+2024/09/06 15:25:46 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:26:15 - mmengine - INFO - Epoch(train) [157][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:48:22  time: 0.586151  data_time: 0.154985  memory: 7116  grad_norm: 0.001594  loss: 0.000313  loss_kpt: 0.000313  acc_pose: 0.921607
+2024/09/06 15:26:40 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:27:09 - mmengine - INFO - Epoch(train) [158][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:47:27  time: 0.591762  data_time: 0.153972  memory: 7116  grad_norm: 0.001816  loss: 0.000303  loss_kpt: 0.000303  acc_pose: 0.936535
+2024/09/06 15:27:29 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:27:34 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:28:03 - mmengine - INFO - Epoch(train) [159][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:46:33  time: 0.580956  data_time: 0.149087  memory: 7116  grad_norm: 0.001832  loss: 0.000306  loss_kpt: 0.000306  acc_pose: 0.935623
+2024/09/06 15:28:28 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:28:57 - mmengine - INFO - Epoch(train) [160][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:45:38  time: 0.578103  data_time: 0.151131  memory: 7116  grad_norm: 0.001546  loss: 0.000306  loss_kpt: 0.000306  acc_pose: 0.944234
+2024/09/06 15:29:22 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:29:22 - mmengine - INFO - Saving checkpoint at 160 epochs
+2024/09/06 15:29:38 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 15:29:38 - mmengine - INFO - Evaluating AUC...
+2024/09/06 15:29:38 - mmengine - INFO - Evaluating EPE...
+2024/09/06 15:29:38 - mmengine - INFO - Epoch(val) [160][43/43]    PCK: 0.860751  AUC: 0.792400  EPE: 11.171023  data_time: 0.031599  time: 0.243670
+2024/09/06 15:29:38 - mmengine - INFO - The previous best checkpoint /home/featurize/mmpose/work_dirs/ViTPose_small_simple_efrei/best_PCK_epoch_80.pth is removed
+2024/09/06 15:29:39 - mmengine - INFO - The best checkpoint with 0.8608 PCK at 160 epoch is saved to best_PCK_epoch_160.pth.
+2024/09/06 15:30:10 - mmengine - INFO - Epoch(train) [161][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:44:44  time: 0.583157  data_time: 0.156772  memory: 7116  grad_norm: 0.001409  loss: 0.000301  loss_kpt: 0.000301  acc_pose: 0.918993
+2024/09/06 15:30:35 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:31:05 - mmengine - INFO - Epoch(train) [162][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:43:50  time: 0.589038  data_time: 0.147599  memory: 7116  grad_norm: 0.002006  loss: 0.000306  loss_kpt: 0.000306  acc_pose: 0.928967
+2024/09/06 15:31:29 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:31:59 - mmengine - INFO - Epoch(train) [163][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:42:56  time: 0.596619  data_time: 0.150829  memory: 7116  grad_norm: 0.001689  loss: 0.000311  loss_kpt: 0.000311  acc_pose: 0.939947
+2024/09/06 15:32:25 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:32:54 - mmengine - INFO - Epoch(train) [164][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:42:02  time: 0.581895  data_time: 0.148783  memory: 7116  grad_norm: 0.002039  loss: 0.000310  loss_kpt: 0.000310  acc_pose: 0.927641
+2024/09/06 15:33:20 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:33:49 - mmengine - INFO - Epoch(train) [165][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:41:08  time: 0.585187  data_time: 0.150732  memory: 7116  grad_norm: 0.001744  loss: 0.000306  loss_kpt: 0.000306  acc_pose: 0.897432
+2024/09/06 15:34:14 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:34:45 - mmengine - INFO - Epoch(train) [166][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:40:14  time: 0.618363  data_time: 0.161212  memory: 7116  grad_norm: 0.001872  loss: 0.000302  loss_kpt: 0.000302  acc_pose: 0.929776
+2024/09/06 15:35:11 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:35:40 - mmengine - INFO - Epoch(train) [167][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:39:20  time: 0.586379  data_time: 0.149020  memory: 7116  grad_norm: 0.001448  loss: 0.000293  loss_kpt: 0.000293  acc_pose: 0.903519
+2024/09/06 15:36:05 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:36:34 - mmengine - INFO - Epoch(train) [168][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:38:26  time: 0.587699  data_time: 0.151888  memory: 7116  grad_norm: 0.002138  loss: 0.000307  loss_kpt: 0.000307  acc_pose: 0.921198
+2024/09/06 15:36:59 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:37:23 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:37:29 - mmengine - INFO - Epoch(train) [169][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:37:31  time: 0.596056  data_time: 0.159537  memory: 7116  grad_norm: 0.001987  loss: 0.000312  loss_kpt: 0.000312  acc_pose: 0.943101
+2024/09/06 15:37:54 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:38:23 - mmengine - INFO - Epoch(train) [170][50/95]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 0:36:37  time: 0.578872  data_time: 0.148655  memory: 7116  grad_norm: 0.001778  loss: 0.000313  loss_kpt: 0.000313  acc_pose: 0.914904
+2024/09/06 15:38:48 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:38:48 - mmengine - INFO - Saving checkpoint at 170 epochs
+2024/09/06 15:39:06 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 15:39:06 - mmengine - INFO - Evaluating AUC...
+2024/09/06 15:39:06 - mmengine - INFO - Evaluating EPE...
+2024/09/06 15:39:06 - mmengine - INFO - Epoch(val) [170][43/43]    PCK: 0.850848  AUC: 0.786536  EPE: 11.511335  data_time: 0.030299  time: 0.255993
+2024/09/06 15:39:35 - mmengine - INFO - Epoch(train) [171][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:35:43  time: 0.590136  data_time: 0.147221  memory: 7116  grad_norm: 0.001696  loss: 0.000292  loss_kpt: 0.000292  acc_pose: 0.931358
+2024/09/06 15:40:01 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:40:29 - mmengine - INFO - Epoch(train) [172][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:34:49  time: 0.571847  data_time: 0.146603  memory: 7116  grad_norm: 0.001359  loss: 0.000276  loss_kpt: 0.000276  acc_pose: 0.914799
+2024/09/06 15:40:55 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:41:24 - mmengine - INFO - Epoch(train) [173][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:33:54  time: 0.596963  data_time: 0.155994  memory: 7116  grad_norm: 0.001268  loss: 0.000274  loss_kpt: 0.000274  acc_pose: 0.937561
+2024/09/06 15:41:50 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:42:19 - mmengine - INFO - Epoch(train) [174][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:33:00  time: 0.590988  data_time: 0.152864  memory: 7116  grad_norm: 0.001327  loss: 0.000271  loss_kpt: 0.000271  acc_pose: 0.946907
+2024/09/06 15:42:44 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:43:13 - mmengine - INFO - Epoch(train) [175][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:32:06  time: 0.580543  data_time: 0.150102  memory: 7116  grad_norm: 0.001409  loss: 0.000265  loss_kpt: 0.000265  acc_pose: 0.932290
+2024/09/06 15:43:38 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:44:07 - mmengine - INFO - Epoch(train) [176][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:31:11  time: 0.568573  data_time: 0.148351  memory: 7116  grad_norm: 0.001183  loss: 0.000262  loss_kpt: 0.000262  acc_pose: 0.919555
+2024/09/06 15:44:32 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:45:01 - mmengine - INFO - Epoch(train) [177][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:30:17  time: 0.582309  data_time: 0.148199  memory: 7116  grad_norm: 0.001280  loss: 0.000268  loss_kpt: 0.000268  acc_pose: 0.937887
+2024/09/06 15:45:26 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:45:55 - mmengine - INFO - Epoch(train) [178][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:29:23  time: 0.577197  data_time: 0.151246  memory: 7116  grad_norm: 0.001235  loss: 0.000260  loss_kpt: 0.000260  acc_pose: 0.926798
+2024/09/06 15:46:20 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:46:50 - mmengine - INFO - Epoch(train) [179][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:28:29  time: 0.602595  data_time: 0.161126  memory: 7116  grad_norm: 0.001095  loss: 0.000258  loss_kpt: 0.000258  acc_pose: 0.951247
+2024/09/06 15:47:14 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:47:16 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:47:46 - mmengine - INFO - Epoch(train) [180][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:27:34  time: 0.593271  data_time: 0.152573  memory: 7116  grad_norm: 0.001150  loss: 0.000261  loss_kpt: 0.000261  acc_pose: 0.940116
+2024/09/06 15:48:11 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:48:11 - mmengine - INFO - Saving checkpoint at 180 epochs
+2024/09/06 15:48:24 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 15:48:24 - mmengine - INFO - Evaluating AUC...
+2024/09/06 15:48:24 - mmengine - INFO - Evaluating EPE...
+2024/09/06 15:48:24 - mmengine - INFO - Epoch(val) [180][43/43]    PCK: 0.860883  AUC: 0.797618  EPE: 10.993234  data_time: 0.030933  time: 0.266202
+2024/09/06 15:48:24 - mmengine - INFO - The previous best checkpoint /home/featurize/mmpose/work_dirs/ViTPose_small_simple_efrei/best_PCK_epoch_160.pth is removed
+2024/09/06 15:48:25 - mmengine - INFO - The best checkpoint with 0.8609 PCK at 180 epoch is saved to best_PCK_epoch_180.pth.
+2024/09/06 15:48:53 - mmengine - INFO - Epoch(train) [181][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:26:40  time: 0.527021  data_time: 0.151170  memory: 7116  grad_norm: 0.001143  loss: 0.000265  loss_kpt: 0.000265  acc_pose: 0.932811
+2024/09/06 15:49:18 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:49:47 - mmengine - INFO - Epoch(train) [182][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:25:45  time: 0.590101  data_time: 0.149751  memory: 7116  grad_norm: 0.001196  loss: 0.000261  loss_kpt: 0.000261  acc_pose: 0.932015
+2024/09/06 15:50:13 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:50:42 - mmengine - INFO - Epoch(train) [183][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:24:51  time: 0.580846  data_time: 0.153069  memory: 7116  grad_norm: 0.001157  loss: 0.000261  loss_kpt: 0.000261  acc_pose: 0.944385
+2024/09/06 15:51:07 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:51:36 - mmengine - INFO - Epoch(train) [184][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:23:57  time: 0.569932  data_time: 0.150035  memory: 7116  grad_norm: 0.001062  loss: 0.000259  loss_kpt: 0.000259  acc_pose: 0.941213
+2024/09/06 15:52:01 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:52:31 - mmengine - INFO - Epoch(train) [185][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:23:03  time: 0.599026  data_time: 0.152488  memory: 7116  grad_norm: 0.001180  loss: 0.000255  loss_kpt: 0.000255  acc_pose: 0.952095
+2024/09/06 15:52:56 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:53:26 - mmengine - INFO - Epoch(train) [186][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:22:08  time: 0.588664  data_time: 0.147927  memory: 7116  grad_norm: 0.001120  loss: 0.000263  loss_kpt: 0.000263  acc_pose: 0.936689
+2024/09/06 15:53:52 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:54:21 - mmengine - INFO - Epoch(train) [187][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:21:14  time: 0.585423  data_time: 0.151388  memory: 7116  grad_norm: 0.001204  loss: 0.000265  loss_kpt: 0.000265  acc_pose: 0.907635
+2024/09/06 15:54:46 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:55:15 - mmengine - INFO - Epoch(train) [188][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:20:20  time: 0.573884  data_time: 0.151866  memory: 7116  grad_norm: 0.001114  loss: 0.000257  loss_kpt: 0.000257  acc_pose: 0.936908
+2024/09/06 15:55:40 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:56:09 - mmengine - INFO - Epoch(train) [189][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:19:26  time: 0.587842  data_time: 0.159178  memory: 7116  grad_norm: 0.001031  loss: 0.000248  loss_kpt: 0.000248  acc_pose: 0.919269
+2024/09/06 15:56:34 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:57:00 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:57:03 - mmengine - INFO - Epoch(train) [190][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:18:31  time: 0.587393  data_time: 0.154679  memory: 7116  grad_norm: 0.001174  loss: 0.000249  loss_kpt: 0.000249  acc_pose: 0.933713
+2024/09/06 15:57:29 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:57:29 - mmengine - INFO - Saving checkpoint at 190 epochs
+2024/09/06 15:57:42 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 15:57:42 - mmengine - INFO - Evaluating AUC...
+2024/09/06 15:57:42 - mmengine - INFO - Evaluating EPE...
+2024/09/06 15:57:42 - mmengine - INFO - Epoch(val) [190][43/43]    PCK: 0.859513  AUC: 0.796172  EPE: 10.835928  data_time: 0.036696  time: 0.265855
+2024/09/06 15:58:10 - mmengine - INFO - Epoch(train) [191][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:17:37  time: 0.558688  data_time: 0.139921  memory: 7116  grad_norm: 0.001055  loss: 0.000251  loss_kpt: 0.000251  acc_pose: 0.953045
+2024/09/06 15:58:35 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:59:04 - mmengine - INFO - Epoch(train) [192][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:16:42  time: 0.581310  data_time: 0.153438  memory: 7116  grad_norm: 0.001261  loss: 0.000257  loss_kpt: 0.000257  acc_pose: 0.936771
+2024/09/06 15:59:29 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 15:59:58 - mmengine - INFO - Epoch(train) [193][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:15:48  time: 0.580283  data_time: 0.155285  memory: 7116  grad_norm: 0.001160  loss: 0.000255  loss_kpt: 0.000255  acc_pose: 0.931102
+2024/09/06 16:00:23 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:00:52 - mmengine - INFO - Epoch(train) [194][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:14:54  time: 0.572659  data_time: 0.149091  memory: 7116  grad_norm: 0.001212  loss: 0.000252  loss_kpt: 0.000252  acc_pose: 0.937380
+2024/09/06 16:01:17 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:01:46 - mmengine - INFO - Epoch(train) [195][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:14:00  time: 0.585427  data_time: 0.150610  memory: 7116  grad_norm: 0.001112  loss: 0.000251  loss_kpt: 0.000251  acc_pose: 0.936462
+2024/09/06 16:02:12 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:02:41 - mmengine - INFO - Epoch(train) [196][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:13:05  time: 0.580356  data_time: 0.148390  memory: 7116  grad_norm: 0.001123  loss: 0.000252  loss_kpt: 0.000252  acc_pose: 0.938712
+2024/09/06 16:03:06 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:03:36 - mmengine - INFO - Epoch(train) [197][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:12:11  time: 0.597734  data_time: 0.161118  memory: 7116  grad_norm: 0.001092  loss: 0.000252  loss_kpt: 0.000252  acc_pose: 0.917239
+2024/09/06 16:04:01 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:04:31 - mmengine - INFO - Epoch(train) [198][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:11:17  time: 0.598616  data_time: 0.158816  memory: 7116  grad_norm: 0.001198  loss: 0.000255  loss_kpt: 0.000255  acc_pose: 0.917358
+2024/09/06 16:04:57 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:05:26 - mmengine - INFO - Epoch(train) [199][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:10:23  time: 0.574633  data_time: 0.151794  memory: 7116  grad_norm: 0.001128  loss: 0.000254  loss_kpt: 0.000254  acc_pose: 0.928888
+2024/09/06 16:05:52 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:06:22 - mmengine - INFO - Epoch(train) [200][50/95]  base_lr: 5.000000e-05 lr: 2.748779e-06  eta: 0:09:28  time: 0.594549  data_time: 0.153863  memory: 7116  grad_norm: 0.001078  loss: 0.000249  loss_kpt: 0.000249  acc_pose: 0.946346
+2024/09/06 16:06:46 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:06:46 - mmengine - INFO - Saving checkpoint at 200 epochs
+2024/09/06 16:06:59 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 16:06:59 - mmengine - INFO - Evaluating AUC...
+2024/09/06 16:07:00 - mmengine - INFO - Evaluating EPE...
+2024/09/06 16:07:00 - mmengine - INFO - Epoch(val) [200][43/43]    PCK: 0.862279  AUC: 0.798949  EPE: 10.491465  data_time: 0.031938  time: 0.258766
+2024/09/06 16:07:00 - mmengine - INFO - The previous best checkpoint /home/featurize/mmpose/work_dirs/ViTPose_small_simple_efrei/best_PCK_epoch_180.pth is removed
+2024/09/06 16:07:01 - mmengine - INFO - The best checkpoint with 0.8623 PCK at 200 epoch is saved to best_PCK_epoch_200.pth.
+2024/09/06 16:07:32 - mmengine - INFO - Epoch(train) [201][50/95]  base_lr: 5.000000e-06 lr: 2.748779e-07  eta: 0:08:34  time: 0.591067  data_time: 0.160201  memory: 7116  grad_norm: 0.001110  loss: 0.000251  loss_kpt: 0.000251  acc_pose: 0.938374
+2024/09/06 16:07:57 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:08:26 - mmengine - INFO - Epoch(train) [202][50/95]  base_lr: 5.000000e-06 lr: 2.748779e-07  eta: 0:07:40  time: 0.582361  data_time: 0.149506  memory: 7116  grad_norm: 0.001247  loss: 0.000248  loss_kpt: 0.000248  acc_pose: 0.937130
+2024/09/06 16:08:51 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:09:21 - mmengine - INFO - Epoch(train) [203][50/95]  base_lr: 5.000000e-06 lr: 2.748779e-07  eta: 0:06:45  time: 0.603031  data_time: 0.162090  memory: 7116  grad_norm: 0.000995  loss: 0.000253  loss_kpt: 0.000253  acc_pose: 0.955948
+2024/09/06 16:09:46 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:10:15 - mmengine - INFO - Epoch(train) [204][50/95]  base_lr: 5.000000e-06 lr: 2.748779e-07  eta: 0:05:51  time: 0.583873  data_time: 0.143884  memory: 7116  grad_norm: 0.001046  loss: 0.000243  loss_kpt: 0.000243  acc_pose: 0.938838
+2024/09/06 16:10:41 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:11:10 - mmengine - INFO - Epoch(train) [205][50/95]  base_lr: 5.000000e-06 lr: 2.748779e-07  eta: 0:04:57  time: 0.593690  data_time: 0.155942  memory: 7116  grad_norm: 0.001090  loss: 0.000247  loss_kpt: 0.000247  acc_pose: 0.943486
+2024/09/06 16:11:35 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:12:05 - mmengine - INFO - Epoch(train) [206][50/95]  base_lr: 5.000000e-06 lr: 2.748779e-07  eta: 0:04:02  time: 0.584953  data_time: 0.156348  memory: 7116  grad_norm: 0.001065  loss: 0.000241  loss_kpt: 0.000241  acc_pose: 0.925951
+2024/09/06 16:12:30 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:12:59 - mmengine - INFO - Epoch(train) [207][50/95]  base_lr: 5.000000e-06 lr: 2.748779e-07  eta: 0:03:08  time: 0.580135  data_time: 0.141624  memory: 7116  grad_norm: 0.001042  loss: 0.000249  loss_kpt: 0.000249  acc_pose: 0.961193
+2024/09/06 16:13:24 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:13:55 - mmengine - INFO - Epoch(train) [208][50/95]  base_lr: 5.000000e-06 lr: 2.748779e-07  eta: 0:02:14  time: 0.605706  data_time: 0.156451  memory: 7116  grad_norm: 0.001017  loss: 0.000246  loss_kpt: 0.000246  acc_pose: 0.932092
+2024/09/06 16:14:21 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:14:47 - mmengine - INFO - Epoch(train) [209][50/95]  base_lr: 5.000000e-06 lr: 2.748779e-07  eta: 0:01:20  time: 0.518355  data_time: 0.158307  memory: 7116  grad_norm: 0.001089  loss: 0.000250  loss_kpt: 0.000250  acc_pose: 0.918470
+2024/09/06 16:15:06 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:15:27 - mmengine - INFO - Epoch(train) [210][50/95]  base_lr: 5.000000e-06 lr: 2.748779e-07  eta: 0:00:25  time: 0.414992  data_time: 0.155505  memory: 7116  grad_norm: 0.001099  loss: 0.000248  loss_kpt: 0.000248  acc_pose: 0.933768
+2024/09/06 16:15:44 - mmengine - INFO - Exp name: ViTPose_small_simple_efrei_20240906_130031
+2024/09/06 16:15:44 - mmengine - INFO - Saving checkpoint at 210 epochs
+2024/09/06 16:15:54 - mmengine - INFO - Evaluating PCKAccuracy (normalized by ``"bbox_size"``)...
+2024/09/06 16:15:54 - mmengine - INFO - Evaluating AUC...
+2024/09/06 16:15:54 - mmengine - INFO - Evaluating EPE...
+2024/09/06 16:15:54 - mmengine - INFO - Epoch(val) [210][43/43]    PCK: 0.862990  AUC: 0.799409  EPE: 10.513629  data_time: 0.033326  time: 0.194404
+2024/09/06 16:15:54 - mmengine - INFO - The previous best checkpoint /home/featurize/mmpose/work_dirs/ViTPose_small_simple_efrei/best_PCK_epoch_200.pth is removed
+2024/09/06 16:15:55 - mmengine - INFO - The best checkpoint with 0.8630 PCK at 210 epoch is saved to best_PCK_epoch_210.pth.
