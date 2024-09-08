@@ -67,14 +67,14 @@ We utilize a detailed skeleton consisting of 28 keypoints for comprehensive pose
 
 ### Performance Comparison
 
-| Model |Backbone |Resolution | PCK@0.05 | AUC | Config | Log | Weight | Size |
-|----------|----------|----------|----------|----------|----------|----------|----------|----------|
-| HRNet | HRNet_w32 | 256x256 | 0.8653 | 0.7992 | [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/efrei_hrnet.py) | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/hrnet.log) |OneDrive |134.3 MB  |
-| HRNet| HRNet_w48 | 256x256 | ? | ? | [config]() | [log]() |OneDrive | ?  |
-| ResNet | ResNet_101 | 256x256 | 0.8630 | 0.7971 | [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/efrei_resnet.py) |[log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/resnet.log) |OneDrive |218.2 MB  |
-| ViTPose | ViTPose_s | 192x256 |Row 3, Col 2 | Row 3, Col 3 |Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |
-| ViTPose | ViTPose_h | 192x256 | 0.84 |Row 3, Col 2 | Row 3, Col 3 |Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |
-| CSPNeXt | CSPNeXt | 256x256 | 0.88 |Row 3, Col 2 | Row 3, Col 3 |Row 1, Col 3 |Row 1, Col 3 |Row 1, Col 3 |
+| Model    | Backbone    | Resolution | PCK@0.05 | AUC   | Config   | Log     | Weight  | Size   |
+|----------|-------------|------------|----------|-------|----------|---------|---------|--------|
+| HRNet    | HRNet_w32    | 256x256    | 0.8789   | 0.8116| [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/efrei_hrnet.py)   | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/hrnet.log)  | OneDrive  | 119.2 MB |
+| HRNet    | HRNet_w48    | 256x256    | 0.8751   | 0.8101| [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/hrnet_w48.py)   | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/hrnet_w48.log) | OneDrive | 263 MB   |
+| ResNet   | ResNet_101   | 256x256    | 0.8630   | 0.7971| [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/efrei_resnet.py)  | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/resnet.log) | OneDrive | 218.2 MB |
+| ViTPose  | ViTPose_small| 192x256    | 0.8630   | 0.7994| [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/ViTPose_small_simple_efrei.py) | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/vitpose_small.log) | OneDrive | 90.1 MB  |
+| ViTPose  | ViTPose_huge | 192x256    | 0.8603   | 0.7976| [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/ViTPose_huge_simple_efrei.py) | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/vitpose_huge.log) | OneDrive | 7.59 GB  |
+| **CSPNeXt** | **CSPNeXt** | **256x256** | **0.8812** | **0.8172** | [**config**](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/cspnext.py) | [**log**](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/cspnext.log) | **OneDrive** | **142.3 MB** |
 
 
 
