@@ -67,6 +67,8 @@ We utilize a detailed skeleton consisting of 28 keypoints for comprehensive pose
 
 ## Models
 
+We trained models with various backbones and architectures using our dataset and compared their performance, including HRNET, RESNET, ViTPose and CSPNeXt. We provide all the configuration files and checkpoint files, allowing you to select and use the models as needed.
+
 ![img](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/rio_olympics2.gif)
 ![img](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/tokyo2020-3.gif)
 
