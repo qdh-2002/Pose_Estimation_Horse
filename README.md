@@ -7,8 +7,8 @@
 
 ## Overview of the Efrei_Horse Dataset
 <div align="center">
-  <img src="https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/overview.png" alt="Description of the image" width="440" style="display: inline-block; margin-right: 10px;">
-  <img src="https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/overview2.png" alt="Description of the image" width="480" style="display: inline-block;">
+  <img src="https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/overview.png" alt="Description of the image" width="460" style="display: inline-block; margin-right: 10px;">
+  <img src="https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/overview2.png" alt="Description of the image" width="500" style="display: inline-block;">
 </div>
 
 ![img](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/walk.gif)
