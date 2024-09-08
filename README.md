@@ -93,8 +93,8 @@ PCK = (1 / N) * Σ[i=1 to N] (1 / K) * Σ[k=1 to K] I (||k^i - k_i||_2 / bbox_si
 $$
 
 where:
-- $$k^i$$ is the predicted keypoint for the i-th sample,
-- $$k_i$$ is the ground truth keypoint for the i-th sample,
+- $$k^i$$ is the predicted keypoint for the $$i-th$$ sample,
+- $$k_i$$ is the ground truth keypoint for the $$i-th$$ sample,
 - bbox_size is the size of the bounding box,
 - thr is the threshold for determining if a keypoint is correctly predicted,
 - $$I(...)$$ is the indicator function that returns 1 if the condition is true, otherwise 0.
