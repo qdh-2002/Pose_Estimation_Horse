@@ -7,15 +7,17 @@
 
 ## Overview of the Efrei_Horse Dataset
 <div align="center">
-  <img src="https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/overview.png" alt="Description of the image" width="460" style="display: inline-block; margin-right: 10px;">
-  <img src="https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/overview2.png" alt="Description of the image" width="500" style="display: inline-block;">
+  <img src="https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/overview.png" alt="Description of the image" width="340" style="display: inline-block; margin-right: 10px;">
+  <img src="https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/overview2.png" alt="Description of the image" width="380" style="display: inline-block;">
 </div>
 
-![img](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/walk.gif)
-![img](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/trot.gif)
-![img](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/canter.gif)
 
+<div align="center">
+<img src="https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/walk.gif" width="240"/> <img src="https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/trot.gif" width="240"/>
+<img src="https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/img/canter.gif" width="240"/>
+</div>
 
+<div align="left">
 The Efrei Horse Dataset is a comprehensive dataset designed for equestrian action analysis and pose estimation, which consists of annotated 7,794 images and collected from 87 videos:
 
 - **🎦 87 Different Videos**: These videos are sourced from prestigious equestrian competitions such as the FEI and the Olympics, as well as IFCE and various internet sources.
