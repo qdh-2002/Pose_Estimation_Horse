@@ -69,14 +69,31 @@ We utilize a detailed skeleton consisting of 28 keypoints for comprehensive pose
 
 | Model    | Backbone    | Resolution | PCK@0.05 | AUC   | Config   | Log     | Weight  | Size   |
 |----------|-------------|------------|----------|-------|----------|---------|---------|--------|
-| HRNet    | HRNet_w32    | 256x256    | 0.8789   | 0.8116| [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/efrei_hrnet.py)   | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/hrnet.log)  | OneDrive  | 119.2 MB |
-| HRNet    | HRNet_w48    | 256x256    | 0.8751   | 0.8101| [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/hrnet_w48.py)   | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/hrnet_w48.log) | OneDrive | 263 MB   |
-| ResNet   | ResNet_101   | 256x256    | 0.8630   | 0.7971| [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/efrei_resnet.py)  | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/resnet.log) | OneDrive | 218.2 MB |
-| ViTPose  | ViTPose_small| 192x256    | 0.8630   | 0.7994| [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/ViTPose_small_simple_efrei.py) | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/vitpose_small.log) | OneDrive | 90.1 MB  |
+| HRNet    | HRNet_w32    | 256x256    | 0.8789   | 0.8116| [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/efrei_hrnet.py)   | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/hrnet.log)  | [OneDrive](https://onedrive.live.com/?cid=FEA017F18035C74D&id=FEA017F18035C74D%21s173a8122a3ed4f08a733c6065057369b&parId=FEA017F18035C74D%21s94e3ec6d5d7047a486068b4171486ad2&o=OneUp)  | 119.2 MB |
+| HRNet    | HRNet_w48    | 256x256    | 0.8751   | 0.8101| [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/hrnet_w48.py)   | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/hrnet_w48.log) | [OneDrive](https://onedrive.live.com/?cid=FEA017F18035C74D&id=FEA017F18035C74D%21sf3f2dbdf0fe1468583e1142346a18211&parId=FEA017F18035C74D%21s94e3ec6d5d7047a486068b4171486ad2&o=OneUp) | 263 MB   |
+| ResNet   | ResNet_101   | 256x256    | 0.8630   | 0.7971| [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/efrei_resnet.py)  | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/resnet.log) | [OneDrive](https://onedrive.live.com/?cid=FEA017F18035C74D&id=FEA017F18035C74D%21s82df7d3199d847bfb031d6be77aa4414&parId=FEA017F18035C74D%21s94e3ec6d5d7047a486068b4171486ad2&o=OneUp) | 218.2 MB |
+| ViTPose  | ViTPose_small| 192x256    | 0.8630   | 0.7994| [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/ViTPose_small_simple_efrei.py) | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/vitpose_small.log) | [OneDrive](https://onedrive.live.com/?cid=FEA017F18035C74D&id=FEA017F18035C74D%21s51544d0670fe4fab913e63da87e24674&parId=FEA017F18035C74D%21s94e3ec6d5d7047a486068b4171486ad2&o=OneUp) | 90.1 MB  |
 | ViTPose  | ViTPose_huge | 192x256    | 0.8603   | 0.7976| [config](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/ViTPose_huge_simple_efrei.py) | [log](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/vitpose_huge.log) | OneDrive | 7.59 GB  |
-| **CSPNeXt** | **CSPNeXt** | **256x256** | **0.8812** | **0.8172** | [**config**](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/cspnext.py) | [**log**](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/cspnext.log) | **OneDrive** | **142.3 MB** |
+| **CSPNeXt** | **CSPNeXt** | **256x256** | **0.8812** | **0.8172** | [**config**](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/cspnext.py) | [**log**](https://github.com/qdh-2002/Pose_Estimation_Horse/blob/main/configs/cspnext.log) | **[OneDrive](https://onedrive.live.com/?cid=FEA017F18035C74D&id=FEA017F18035C74D%21se79a842cbea24586a5b45b079c3399f2&parId=FEA017F18035C74D%21s94e3ec6d5d7047a486068b4171486ad2&o=OneUp)** | **142.3 MB** |
+
+### Evaluation Metric
+We used the PCK metric normalized by the bounding box (bbox) to evaluate and compare the models. The calculation is:
+
+**PCK** is calculated as:
+
+$$
+PCK = (1 / N) * Σ[i=1 to N] (1 / K) * Σ[k=1 to K] I (||k^i - k_i||_2 / bbox_size < thr)
+$$
+
+where:
+- $$k^i$$ is the predicted keypoint for the i-th sample,
+- $$k_i$$ is the ground truth keypoint for the i-th sample,
+- bbox_size is the size of the bounding box,
+- thr is the threshold for determining if a keypoint is correctly predicted,
+- $$I(...)$$ is the indicator function that returns 1 if the condition is true, otherwise 0.
 
 
+For details on codes implementation, refer to the official [MMPose](https://mmpose.readthedocs.io/en/latest/_modules/mmpose/evaluation/metrics/keypoint_2d_metrics.html?highlight=PCK) documentation.
 
 ### Usage
 
