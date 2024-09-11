@@ -150,6 +150,16 @@ os.mkdir('data')
 !mim install 'mmpretrain>=1.0.0'
 ```
 
+3. **Download config and checkpoints files from this repository into directory:
+```
+cd mmpose/configs/animal_2d_keypoint
+mkdir efrei
+cd efrei
+
+```
+   
+   'mmpose/configs/animal_2d_keypoint/efrei'
+
 
 5. **Test your own videos:**
 ```
