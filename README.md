@@ -151,7 +151,6 @@ os.mkdir('data')
 ```
 
 
-
 5. **Test your own videos:**
 ```
 !python mmpose/demo/topdown_demo_with_mmdet.py \
