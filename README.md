@@ -150,15 +150,30 @@ os.mkdir('data')
 !mim install 'mmpretrain>=1.0.0'
 ```
 
-3. **Download config and checkpoints files from this repository into directory:
+3. **Download config from this repository into MMPose directory**:
 ```
+#create folder for config files
+os.chdir('configs/animal_2d_keypoint/topdown_heatmap')
+os.mkdir('efrei')
+os.chdir('efrei')
+#download config file(use cspnext as an exmaple)
+!wget "https://raw.githubusercontent.com/qdh-2002/Pose_Estimation_Horse/main/configs/cspnext.py?token=GHSAT0AAAAAACWNANC63BHN5CY467VZZOGUZXB4NKA" -O cspnext.py
+
+
+#create folder for checkpoints files
 cd mmpose/configs/animal_2d_keypoint
-mkdir efrei
-cd efrei
+
+os.chdir('../../../../')
 
 ```
    
-   'mmpose/configs/animal_2d_keypoint/efrei'
+
+
+4. **Download checkpoint files from OneDrive into Checkpoint directory**
+```
+#Download the checkpoint files from OneDrive and upload them into path 'mmpose/checkpoint'.
+
+```
 
 
 5. **Test your own videos:**
@@ -167,8 +182,11 @@ cd efrei
         mmpose/demo/mmdetection_cfg/faster_rcnn_r50_fpn_coco.py \
         https://download.openmmlab.com/mmdetection/v2.0/faster_rcnn/faster_rcnn_r50_fpn_1x_coco/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth \
         mmpose/configs/animal_2d_keypoint/topdown_heatmap/efrei/ViTPose_huge_simple_efrei.py \
-        work/May24/epoch_190.pth \
+        # change the config file path if needed
+        mmpose/checkpoint/epoch_190.pth \
+        # change the checkpoint file path if needed
         --input icelandichorse-galop3.mp4 \
+        # change the video/image path
         --output-root outputs/ViTPose_huge_simple_efrei \
         --device cuda:0 \
         --bbox-thr 0.5 \
@@ -178,6 +196,7 @@ cd efrei
         --thickness 2 \
         --draw-bbox \
         --show-kpt-idx \
+        # 17 is the index for horse
         --det-cat-id 17
 ```
 
@@ -186,7 +205,6 @@ cd efrei
 
 See [the contributing file](CONTRIBUTING.md)!
 
-PRs accepted.
 
 Small note: If editing the Readme, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
 
